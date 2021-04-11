@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Task1</string>
+    <string name="chooseButton">CHOOSE</string>
+    <string name="chosenText">I will show you want i want when i get it!</string>
+    <string name="StaticText">What is thy bidding, my master?</string>
+    <string name="share">SHARE</string>
+    <string name="share_text_with" translatable="false">SHARE</string>
+    <string name="a_long_time_ago_in_a_galaxy_far_far_away">A long time ago in a galaxy far far away</string>
+    <string name="say_at_last_who_art_thou">Say at last - who art thou?</string>
+    <string name="that_power_i_serve">That Power I serve</string>
+    <string name="which_wills_forever_evil">Which wills forever evil</string>
+    <string name="yet_does_forever_good">Yet does forever good</string>
+</resources>

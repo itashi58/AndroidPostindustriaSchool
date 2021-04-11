@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Task1</string>
+    <string name="StaticText">Що накажете, мій пане?</string>
+    <string name="chooseButton">ОБРАТИ</string>
+    <string name="share">ПОДІЛИТИСЯ</string>
+    <string name="chosenText">Я покажу вам, що я хочу, коли отримаю це!</string>
+    <string name="a_long_time_ago_in_a_galaxy_far_far_away">Давним-давно, в далекій-далекій галактиці…</string>
+    <string name="say_at_last_who_art_thou">Скажи хочаб хто ти?</string>
+    <string name="that_power_i_serve">Я тої сили частка</string>
+    <string name="which_wills_forever_evil">Шо робить лиш добро</string>
+    <string name="yet_does_forever_good">Бажаючи лиш злого</string>
+</resources>

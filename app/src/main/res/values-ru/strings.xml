@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Task1</string>
+    <string name="StaticText">Что прикажете, мой господин?</string>
+    <string name="chooseButton">ВЫБРАТЬ</string>
+    <string name="chosenText">Я покажу вам, что я хочу, когда получу это!</string>
+    <string name="share">ПОДЕЛИТЬСЯ</string>
+    <string name="a_long_time_ago_in_a_galaxy_far_far_away">Давным-давно, в далёкой-далёкой галактике…</string>
+    <string name="say_at_last_who_art_thou">…Так кто ж ты, наконец?</string>
+    <string name="that_power_i_serve">– Я – часть той силы,</string>
+    <string name="which_wills_forever_evil">Что вечно хочет зла </string>
+    <string name="yet_does_forever_good">И вечно совершает благо</string>
+</resources>
