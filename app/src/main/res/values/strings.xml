@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Task1</string>
+    <!-- TODO I suggest you to use `title_`, `message_`, `error_`, etc. prefixes for your string resources for easier navigation    -->
+    <!-- E.g. title_choose    -->
     <string name="chooseButton">CHOOSE</string>
     <string name="chosenText">I will show you want i want when i get it!</string>
     <string name="StaticText">What is thy bidding, my master?</string>

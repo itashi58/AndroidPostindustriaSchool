@@ -7,8 +7,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 
+// TODO: 4/12/21 On rotation selected info is not restored.
 class MainActivity : AppCompatActivity() {
 
+    // TODO: 4/12/21 Apply proper code formatting (cmd + shift + L)
     private lateinit var chosenText:TextView
     private lateinit var receivedText:TextView
 
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if(requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            // TODO: 4/12/21 "result" - Avoid hardcode in code. Move them to constants (e.g. result is repeated on 2 activities)
             chosenText.text = data.getStringExtra("result")
         }
     }
@@ -39,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     fun startChooseActivity(view: View) {
         val intent = Intent(this, ChooseActivity::class.java)
+        // TODO: 4/12/21 Hardcoded `1`. Move such values to constants
         startActivityForResult(intent, 1)
     }
 

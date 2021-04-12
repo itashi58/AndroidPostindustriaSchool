@@ -13,6 +13,7 @@ class ChooseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose)
+        // TODO: 4/12/21 code style formatting
         val button1:Button = findViewById(R.id.button1)
         val button2:Button = findViewById(R.id.button2)
         val button3:Button = findViewById(R.id.button3)
@@ -28,6 +29,7 @@ class ChooseActivity : AppCompatActivity() {
     }
 
     //taking text from the button and sending it as a result to main activity
+    // TODO: 4/12/21 `get` implies that you return something from a method. More proper name would be `sendResult...`
     private fun getResultToMainActivity(button: Button) {
         val intent = Intent(this , MainActivity::class.java)
         intent.putExtra("result", button.text)
