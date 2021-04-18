@@ -2,4 +2,6 @@
     <string name="app_name">AndroidPostindustriaSchool</string>
     <string name="logo_md_content_description">Logo MD</string>
     <string name="app_created_by_malyi_danylo">App created by: Malyi Danylo</string>
+    <string name="search_button">Search</string>
+    <string name="search_in_flickr_edittext_hint">Search in Flickr</string>
 </resources>
