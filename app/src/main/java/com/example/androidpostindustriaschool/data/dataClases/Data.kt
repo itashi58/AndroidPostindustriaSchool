@@ -1,8 +1,9 @@
 package com.example.androidpostindustriaschool.data.dataClases
+
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Data (
+data class Data(
     @SerializedName("photos")
     @Expose
     var photos: Photos,

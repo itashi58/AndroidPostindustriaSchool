@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.androidpostindustriaschool">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,8 +12,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
+        <activity android:name=".activities.WebViewActivity"
+            tools:ignore="AppLinkUrlError"
+            android:theme="@style/Theme.AndroidPostindustriaSchool">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="https"/>
+                <data android:scheme="http"/>
+            </intent-filter>
+        </activity>
+
+
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".activities.SplashScreenActivity"
             android:theme="@style/Theme.AndroidPostindustriaSchool">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,12 +33,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.AndroidPostindustriaSchool">
-
-        </activity>
+            android:name=".activities.MainActivity"
+            android:theme="@style/Theme.AndroidPostindustriaSchool" />
     </application>
 
 </manifest>

@@ -1,8 +1,9 @@
-package com.example.androidpostindustriaschool
+package com.example.androidpostindustriaschool.activities
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.androidpostindustriaschool.R
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
