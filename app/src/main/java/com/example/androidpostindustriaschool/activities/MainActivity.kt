@@ -3,6 +3,7 @@ package com.example.androidpostindustriaschool.activities
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -32,10 +33,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        searchButton = findViewById(R.id.button)
-        searchInputField = findViewById(R.id.editText)
+        searchButton = findViewById(R.id.searchBtn)
+        searchInputField = findViewById(R.id.searchEditText)
         apiResponseTextView = findViewById(R.id.apiResponseTextView)
-        progressBar = findViewById(R.id.progressBar)
+        progressBar = findViewById(R.id.progressBarMain)
 
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
@@ -59,6 +60,22 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+    }
+
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putCharSequence("searchInputField", searchInputField.text)
+        outState.putCharSequence("apiResponseTextView", apiResponseTextView.text.toString())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        findViewById<EditText>(R.id.searchEditText).text =
+            savedInstanceState.getCharSequence("searchInputField") as Editable?
+        findViewById<TextView>(R.id.apiResponseTextView).text =
+            savedInstanceState.getCharSequence("apiResponseTextView")
+        linkify()
     }
 
     //in apiResponseTextView make links with intents leading to webViewActivity
