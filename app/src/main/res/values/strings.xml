@@ -1,4 +1,6 @@
 <resources>
+
+<!--    TODO pay attention to resource naming. Refer to review from first week -->
     <string name="app_name">AndroidPostindustriaSchool</string>
     <string name="logo_md_content_description">Logo MD</string>
     <string name="app_created_by_malyi_danylo">App created by: Malyi Danylo</string>

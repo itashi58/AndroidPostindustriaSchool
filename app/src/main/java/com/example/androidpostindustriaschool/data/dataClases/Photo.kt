@@ -1,3 +1,5 @@
+// TODO: 4/22/21 It is not common to use camelCase in package naming.
+//  use data.model or data.response or something more appropriate for package names
 package com.example.androidpostindustriaschool.data.dataClases
 
 import com.google.gson.annotations.Expose

@@ -13,6 +13,7 @@ class WebViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
         webView = findViewById(R.id.webView)
+        // TODO: 4/22/21 redundant field
         val recivedIntent = intent
         if (intent.data != null) {
             webView.loadUrl(intent.data.toString())
