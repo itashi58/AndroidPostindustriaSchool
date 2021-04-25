@@ -20,6 +20,9 @@ import com.example.androidpostindustriaschool.data.repository.Repository
 import org.bluecabin.textoo.Textoo
 
 
+// TODO: 4/22/21 The app will crash if running search with empty field
+// TODO: 4/22/21 The app will crash if running search without internet. You should add error handling
+// TODO: 4/22/21 App doesn't handle empty result
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
@@ -43,12 +46,18 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
         searchButton.setOnClickListener {
+
+            // TODO: 4/22/21 You should control your progress indicator visibility from view model by providing a progress live data
             progressBar.visibility = View.VISIBLE
             val searchRequest = searchInputField.text.toString()
             viewModel.getPost(searchRequest)
 
             var answer = ""
+
+            // TODO: 4/22/21 Move your observers outside of onClickListener method You are adding observers each time you click a button.
+            //  This is why you are skipped frames issue and progress dialog issues
             viewModel.myResponse.observe(this, Observer { response ->
+                // TODO: 4/22/21 Better to perform this operation outside of presentation layer
                 response.photos.photo.forEach {
                     answer += "https://farm" + it.farm + ".staticflickr.com/" + it.server + "/" + it.id + "_" + it.secret + ".jpg" + "\n"
                 }
@@ -65,6 +74,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        // TODO: 4/22/21 Avoid hardcode. Move this into constants. Refer to review from first week.
         outState.putCharSequence("searchInputField", searchInputField.text)
         outState.putCharSequence("apiResponseTextView", apiResponseTextView.text.toString())
     }
