@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.data.dataClases
+package com.example.androidpostindustriaschool.data.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
