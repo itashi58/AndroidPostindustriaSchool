@@ -1,13 +1,27 @@
 package com.example.androidpostindustriaschool.data.repository
 
-import com.example.androidpostindustriaschool.data.model.PhotoResponse
 import com.example.androidpostindustriaschool.data.RetrofitInstanceFlickr
+import java.io.IOException
 
-// TODO: 4/22/21 Better to pass `api` as parameter in repository. This way repository can be instantiated with different apis if needed
 class Repository {
-    // TODO: 4/22/21 You can map response in repository and return more useful model for presentation layer
-    //  There is no error handling, so basically any network error will crash the app
-    suspend fun getAPIService(search: String): PhotoResponse {
-        return RetrofitInstanceFlickr.api.search(search)
+    private val flickrApi = RetrofitInstanceFlickr.api
+
+    /**
+     * constructing urls from ApiResponse and unite them in one String
+     * in case of no result for the search returns empty string ("")
+     * in case of network errors will return null
+     * both cases are handled in MainViewModel
+     */
+    suspend fun getFlickrAPIService(searchRequest: String): String? {
+        return try {
+            val apiResponse = flickrApi.search(searchRequest)
+            var answerString = ""
+            apiResponse.photos.photo.forEach {
+                answerString += "https://farm" + it.farm + ".staticflickr.com/" + it.server + "/" + it.id + "_" + it.secret + ".jpg" + "\n"
+            }
+            answerString
+        } catch (e: IOException) {
+            null
+        }
     }
 }

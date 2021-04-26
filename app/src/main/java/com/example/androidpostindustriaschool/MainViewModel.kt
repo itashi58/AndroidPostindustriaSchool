@@ -1,25 +1,32 @@
 package com.example.androidpostindustriaschool
 
+import android.annotation.SuppressLint
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidpostindustriaschool.data.model.PhotoResponse
 import com.example.androidpostindustriaschool.data.repository.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val repository: Repository) : ViewModel() {
+class MainViewModel(private val repository: Repository, @SuppressLint("StaticFieldLeak") private val context: Context) : ViewModel() {
 
-    // TODO: 4/22/21  Instead of storing a complete response in VM and converting it in activity to something useful -
-    //  you can convert it into presentation model in repository
-    val myResponse: MutableLiveData<PhotoResponse> = MutableLiveData()
+    val flickrSearchResponse: MutableLiveData<String> = MutableLiveData()
+    val progressBarVisibility: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun getPost(search: String) {
-
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.getAPIService(search)
-            myResponse.postValue(response)
+    fun searchInFlickr(search: String) {
+        if (search.isEmpty()) {
+            flickrSearchResponse.postValue(context.getString(R.string.search_empty))
+        } else {
+            viewModelScope.launch(Dispatchers.IO) {
+                progressBarVisibility.postValue(true)
+                when (val response = repository.getFlickrAPIService(search)) {
+                    null -> flickrSearchResponse.postValue(context.getString(R.string.no_interet))
+                    "" -> flickrSearchResponse.postValue(context.getString(R.string.no_search_result))
+                    else -> flickrSearchResponse.postValue(response)
+                }
+                progressBarVisibility.postValue(false)
+            }
         }
-
     }
 }

@@ -2,10 +2,12 @@
 
     <string name="app_name">AndroidPostindustriaSchool</string>
     <string name="logo_md_content_description">Logo MD</string>
+    <string name="no_interet" translatable="false">Internet connection error. Please check your connection and try again</string>
+    <string name="no_search_result" translatable="false">Nothing to show on your request(</string>
+    <string name="search_empty" translatable="false">Search field is empty</string>
 
     <string name="title_app_created_by">App created by: Malyi Danylo</string>
     <string name="title_btnSearch">Search</string>
     <string name="title_hint_for_search_field">Search in Flickr</string>
-
 
 </resources>

@@ -4,25 +4,21 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.androidpostindustriaschool.MainViewModel
 import com.example.androidpostindustriaschool.MainViewModelFactory
 import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.data.repository.Repository
+import com.example.androidpostindustriaschool.util.Constants.Companion.RESPONSE_TEXTVIEW_KEY
+import com.example.androidpostindustriaschool.util.Constants.Companion.SEARCH_FIELD_KEY
 import org.bluecabin.textoo.Textoo
 
-
-// TODO: 4/22/21 The app will crash if running search with empty field
-// TODO: 4/22/21 The app will crash if running search without internet. You should add error handling
-// TODO: 4/22/21 App doesn't handle empty result
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
@@ -42,64 +38,61 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBarMain)
 
         val repository = Repository()
-        val viewModelFactory = MainViewModelFactory(repository)
+        val viewModelFactory = MainViewModelFactory(repository, this)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
+        viewModel.flickrSearchResponse.observe(this, { response ->
+            apiResponseTextView.text = response
+            linkify()
+        })
+
+        viewModel.progressBarVisibility.observe(this, { visibility ->
+            progressBarVisible(visibility)
+        })
+
         searchButton.setOnClickListener {
-
-            // TODO: 4/22/21 You should control your progress indicator visibility from view model by providing a progress live data
-            progressBar.visibility = View.VISIBLE
             val searchRequest = searchInputField.text.toString()
-            viewModel.getPost(searchRequest)
-
-            var answer = ""
-
-            // TODO: 4/22/21 Move your observers outside of onClickListener method You are adding observers each time you click a button.
-            //  This is why you are skipped frames issue and progress dialog issues
-            viewModel.myResponse.observe(this, Observer { response ->
-                // TODO: 4/22/21 Better to perform this operation outside of presentation layer
-                response.photos.photo.forEach {
-                    answer += "https://farm" + it.farm + ".staticflickr.com/" + it.server + "/" + it.id + "_" + it.secret + ".jpg" + "\n"
-                }
-                Log.d("link", answer)
-                progressBar.visibility = View.INVISIBLE
-                apiResponseTextView.text = answer
-                linkify()
-            })
+            viewModel.searchInFlickr(searchRequest)
         }
 
-
     }
-
-
+    
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        // TODO: 4/22/21 Avoid hardcode. Move this into constants. Refer to review from first week.
-        outState.putCharSequence("searchInputField", searchInputField.text)
-        outState.putCharSequence("apiResponseTextView", apiResponseTextView.text.toString())
+        outState.putCharSequence(SEARCH_FIELD_KEY, searchInputField.text)
+        outState.putCharSequence(RESPONSE_TEXTVIEW_KEY, apiResponseTextView.text.toString())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         findViewById<EditText>(R.id.searchEditText).text =
-            savedInstanceState.getCharSequence("searchInputField") as Editable?
+                savedInstanceState.getCharSequence(SEARCH_FIELD_KEY) as Editable?
         findViewById<TextView>(R.id.apiResponseTextView).text =
-            savedInstanceState.getCharSequence("apiResponseTextView")
+                savedInstanceState.getCharSequence(RESPONSE_TEXTVIEW_KEY)
         linkify()
+    }
+
+    //controls progress bar visibility
+    private fun progressBarVisible(boolean: Boolean) {
+        if (boolean) {
+            progressBar.visibility = View.VISIBLE
+        } else {
+            progressBar.visibility = View.INVISIBLE
+        }
     }
 
     //in apiResponseTextView make links with intents leading to webViewActivity
     private fun linkify() {
         apiResponseTextView = Textoo
-            .config(apiResponseTextView)
-            .linkifyAll() // or just .linkifyAll()
-            .addLinksHandler { view, url ->
-                val intent = Intent(this, WebViewActivity::class.java).apply {
-                    data = Uri.parse(url)
+                .config(apiResponseTextView)
+                .linkifyAll() // or just .linkifyAll()
+                .addLinksHandler { view, url ->
+                    val intent = Intent(this, WebViewActivity::class.java).apply {
+                        data = Uri.parse(url)
+                    }
+                    startActivity(intent)
+                    true
                 }
-                startActivity(intent)
-                true
-            }
-            .apply()
+                .apply()
     }
 }
