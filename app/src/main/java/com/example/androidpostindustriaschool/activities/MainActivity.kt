@@ -1,30 +1,29 @@
 package com.example.androidpostindustriaschool.activities
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView
 import com.example.androidpostindustriaschool.MainViewModel
 import com.example.androidpostindustriaschool.MainViewModelFactory
 import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.data.repository.Repository
-import com.example.androidpostindustriaschool.util.Constants.Companion.RESPONSE_TEXTVIEW_KEY
 import com.example.androidpostindustriaschool.util.Constants.Companion.SEARCH_FIELD_KEY
-import org.bluecabin.textoo.Textoo
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var searchButton: Button
     private lateinit var searchInputField: EditText
-    private lateinit var apiResponseTextView: TextView
+    private lateinit var photoRecyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
 
 
@@ -34,16 +33,29 @@ class MainActivity : AppCompatActivity() {
 
         searchButton = findViewById(R.id.searchBtn)
         searchInputField = findViewById(R.id.searchEditText)
-        apiResponseTextView = findViewById(R.id.apiResponseTextView)
+        photoRecyclerView = findViewById(R.id.recyclerview)
         progressBar = findViewById(R.id.progressBarMain)
 
         val repository = Repository()
-        val viewModelFactory = MainViewModelFactory(repository, this)
+        val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
         viewModel.flickrSearchResponse.observe(this, { response ->
-            apiResponseTextView.text = response
-            linkify()
+            when (response) {
+                is ArrayList<*> -> {
+                    photoRecyclerView.layoutManager = LinearLayoutManager(this)
+                    photoRecyclerView.adapter = PhotoAdapter(response as ArrayList<String>)
+                }
+                is Int -> {
+                    val toast = Toast.makeText(this, getString(response), Toast.LENGTH_LONG)
+                    toast.show()
+                }
+                else -> {
+                    val toast = Toast.makeText(this, getString(R.string.internal_error), Toast.LENGTH_LONG)
+                    toast.show()
+                    Log.d("MainAct Response error", "Unexpected response type")
+                }
+            }
         })
 
         viewModel.progressBarVisibility.observe(this, { visibility ->
@@ -56,20 +68,20 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-    
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putCharSequence(SEARCH_FIELD_KEY, searchInputField.text)
-        outState.putCharSequence(RESPONSE_TEXTVIEW_KEY, apiResponseTextView.text.toString())
+//        outState.putCharSequence(RESPONSE_TEXTVIEW_KEY, apiResponseTextView.text.toString())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         findViewById<EditText>(R.id.searchEditText).text =
                 savedInstanceState.getCharSequence(SEARCH_FIELD_KEY) as Editable?
-        findViewById<TextView>(R.id.apiResponseTextView).text =
-                savedInstanceState.getCharSequence(RESPONSE_TEXTVIEW_KEY)
-        linkify()
+//        findViewById<TextView>(R.id.apiResponseTextView).text =
+//                savedInstanceState.getCharSequence(RESPONSE_TEXTVIEW_KEY)
+//        linkify()
     }
 
     //controls progress bar visibility
@@ -81,18 +93,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //in apiResponseTextView make links with intents leading to webViewActivity
-    private fun linkify() {
-        apiResponseTextView = Textoo
-                .config(apiResponseTextView)
-                .linkifyAll() // or just .linkifyAll()
-                .addLinksHandler { view, url ->
-                    val intent = Intent(this, WebViewActivity::class.java).apply {
-                        data = Uri.parse(url)
-                    }
-                    startActivity(intent)
-                    true
-                }
-                .apply()
-    }
 }

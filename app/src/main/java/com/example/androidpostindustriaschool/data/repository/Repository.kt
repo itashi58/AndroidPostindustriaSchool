@@ -12,14 +12,14 @@ class Repository {
      * in case of network errors will return null
      * both cases are handled in MainViewModel
      */
-    suspend fun getFlickrAPIService(searchRequest: String): String? {
+    suspend fun getFlickrAPIService(searchRequest: String): ArrayList<String>? {
         return try {
             val apiResponse = flickrApi.search(searchRequest)
-            var answerString = ""
+            val urls = ArrayList<String>()
             apiResponse.photos.photo.forEach {
-                answerString += "https://farm" + it.farm + ".staticflickr.com/" + it.server + "/" + it.id + "_" + it.secret + ".jpg" + "\n"
+                urls.add("https://farm" + it.farm + ".staticflickr.com/" + it.server + "/" + it.id + "_" + it.secret + ".jpg" + "\n")
             }
-            answerString
+            urls
         } catch (e: IOException) {
             null
         }
