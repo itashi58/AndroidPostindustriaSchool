@@ -8,8 +8,6 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidpostindustriaschool.MainViewModel
 import com.example.androidpostindustriaschool.MainViewModelFactory
@@ -43,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.flickrSearchResponse.observe(this, { response ->
             when (response) {
                 is ArrayList<*> -> {
-                    photoRecyclerView.layoutManager = LinearLayoutManager(this)
+                    photoRecyclerView.layoutManager = GridLayoutManager(this, 1)
                     photoRecyclerView.adapter = PhotoAdapter(response as ArrayList<String>)
                 }
                 is Int -> {
