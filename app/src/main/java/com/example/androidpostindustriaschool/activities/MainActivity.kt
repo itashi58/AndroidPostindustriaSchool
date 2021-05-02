@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidpostindustriaschool.MainViewModel
 import com.example.androidpostindustriaschool.MainViewModelFactory
@@ -41,8 +42,13 @@ class MainActivity : AppCompatActivity() {
         viewModel.flickrSearchResponse.observe(this, { response ->
             when (response) {
                 is ArrayList<*> -> {
+                    val adapter = PhotoAdapter(response as ArrayList<String>)
                     photoRecyclerView.layoutManager = GridLayoutManager(this, 1)
-                    photoRecyclerView.adapter = PhotoAdapter(response as ArrayList<String>)
+                    photoRecyclerView.adapter = adapter
+
+                    val itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
+
+                    itemTouchHelper.attachToRecyclerView(photoRecyclerView)
                 }
                 is Int -> {
                     val toast = Toast.makeText(this, getString(response), Toast.LENGTH_LONG)

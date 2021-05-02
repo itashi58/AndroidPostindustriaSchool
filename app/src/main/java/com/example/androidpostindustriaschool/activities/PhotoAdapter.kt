@@ -50,6 +50,11 @@ class PhotoAdapter(private val urls: ArrayList<String>) :
 
     override fun getItemCount() = urls.size
 
+    fun deleteItem(position: Int){
+        urls.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var linkTextView: TextView = itemView.findViewById(R.id.photoLinkText)
         var photoWebView: ImageView = itemView.findViewById(R.id.photoWebView)
