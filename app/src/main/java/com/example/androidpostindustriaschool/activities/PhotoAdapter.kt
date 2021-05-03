@@ -12,6 +12,8 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidpostindustriaschool.R
+import com.example.androidpostindustriaschool.data.PhotoDao
+import com.example.androidpostindustriaschool.data.repository.Repository
 import org.bluecabin.textoo.Textoo
 
 

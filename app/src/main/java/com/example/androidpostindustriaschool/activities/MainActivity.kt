@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androidpostindustriaschool.MainViewModel
 import com.example.androidpostindustriaschool.MainViewModelFactory
 import com.example.androidpostindustriaschool.R
+import com.example.androidpostindustriaschool.data.PhotoDatabase
 import com.example.androidpostindustriaschool.data.repository.Repository
 import com.example.androidpostindustriaschool.util.Constants.Companion.SEARCH_FIELD_KEY
 
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         photoRecyclerView = findViewById(R.id.recyclerview)
         progressBar = findViewById(R.id.progressBarMain)
 
-        val repository = Repository()
+        val repository = Repository(PhotoDatabase.getDatabase(this).photoDao())
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
@@ -46,8 +47,7 @@ class MainActivity : AppCompatActivity() {
                     photoRecyclerView.layoutManager = GridLayoutManager(this, 1)
                     photoRecyclerView.adapter = adapter
 
-                    val itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
-
+                    val itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter, viewModel))
                     itemTouchHelper.attachToRecyclerView(photoRecyclerView)
                 }
                 is Int -> {
