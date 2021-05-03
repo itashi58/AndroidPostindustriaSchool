@@ -1,7 +1,8 @@
 package com.example.androidpostindustriaschool.activities
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -15,7 +16,7 @@ import com.example.androidpostindustriaschool.MainViewModelFactory
 import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.data.PhotoDatabase
 import com.example.androidpostindustriaschool.data.repository.Repository
-import com.example.androidpostindustriaschool.util.Constants.Companion.SEARCH_FIELD_KEY
+import com.example.androidpostindustriaschool.util.Constants
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var searchInputField: EditText
     private lateinit var photoRecyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
+    private lateinit var lastRequest: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         searchInputField = findViewById(R.id.searchEditText)
         photoRecyclerView = findViewById(R.id.recyclerview)
         progressBar = findViewById(R.id.progressBarMain)
+        lastRequest = getSharedPreferences(Constants.LAST_REQUEST, Context.MODE_PRIVATE)
 
         val repository = Repository(PhotoDatabase.getDatabase(this).photoDao())
         val viewModelFactory = MainViewModelFactory(repository)
@@ -55,7 +58,11 @@ class MainActivity : AppCompatActivity() {
                     toast.show()
                 }
                 else -> {
-                    val toast = Toast.makeText(this, getString(R.string.internal_error), Toast.LENGTH_LONG)
+                    val toast = Toast.makeText(
+                        this,
+                        getString(R.string.internal_error),
+                        Toast.LENGTH_LONG
+                    )
                     toast.show()
                     Log.d("MainAct Response error", "Unexpected response type")
                 }
@@ -73,19 +80,19 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putCharSequence(SEARCH_FIELD_KEY, searchInputField.text)
-//        outState.putCharSequence(RESPONSE_TEXTVIEW_KEY, apiResponseTextView.text.toString())
+    override fun onPause() {
+        super.onPause()
+
+        val editor = lastRequest.edit()
+        editor.putString(Constants.LAST_REQUEST, searchInputField.text.toString()).apply()
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        findViewById<EditText>(R.id.searchEditText).text =
-                savedInstanceState.getCharSequence(SEARCH_FIELD_KEY) as Editable?
-//        findViewById<TextView>(R.id.apiResponseTextView).text =
-//                savedInstanceState.getCharSequence(RESPONSE_TEXTVIEW_KEY)
-//        linkify()
+    override fun onResume() {
+        super.onResume()
+
+        if (lastRequest.contains(Constants.LAST_REQUEST)) {
+            searchInputField.setText(lastRequest.getString(Constants.LAST_REQUEST, ""))
+        }
     }
 
     //controls progress bar visibility
