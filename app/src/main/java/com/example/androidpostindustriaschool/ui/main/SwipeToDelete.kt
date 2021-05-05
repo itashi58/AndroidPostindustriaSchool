@@ -10,7 +10,7 @@ class SwipeToDelete(private var adapter: PhotoAdapter, private val viewModel: Ma
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val position = viewHolder.absoluteAdapterPosition
-        viewModel.deleteId(position)
+        viewModel.deleteId(adapter.urls[position]+viewModel.lastRequest)
         adapter.deleteItem(position)
     }
 }

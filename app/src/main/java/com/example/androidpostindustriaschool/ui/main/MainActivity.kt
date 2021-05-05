@@ -41,15 +41,17 @@ class MainActivity : AppCompatActivity() {
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
+        val adapter = PhotoAdapter()
+        photoRecyclerView.adapter = adapter
+        photoRecyclerView.layoutManager = GridLayoutManager(this, resources.getInteger(R.integer.span_count))
+
+        val itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter, viewModel))
+        itemTouchHelper.attachToRecyclerView(photoRecyclerView)
+
         viewModel.flickrSearchResponse.observe(this, { response ->
             when (response) {
                 is ArrayList<*> -> {
-                    val adapter = PhotoAdapter(response as ArrayList<String>)
-                    photoRecyclerView.layoutManager = GridLayoutManager(this, 1)
-                    photoRecyclerView.adapter = adapter
-
-                    val itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter, viewModel))
-                    itemTouchHelper.attachToRecyclerView(photoRecyclerView)
+                    adapter.updateList(response as ArrayList<String>)
                 }
                 is Int -> {
                     val toast = Toast.makeText(this, getString(response), Toast.LENGTH_LONG)

@@ -10,6 +10,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
     val flickrSearchResponse: MutableLiveData<Any> = MutableLiveData()
     val progressBarVisibility: MutableLiveData<Boolean> = MutableLiveData()
+    lateinit var lastRequest: String
 
     fun searchInFlickr(search: String) {
         if (search.isEmpty()) {
@@ -21,6 +22,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
                     null -> flickrSearchResponse.postValue(R.string.title_no_interet)
                     ArrayList<String>() -> flickrSearchResponse.postValue(R.string.title_no_search_result)
                     else -> {
+                        lastRequest = search
                         flickrSearchResponse.postValue(response)
                         repository.deleteAllFromDB()
                         repository.insertDB(response, search)
@@ -31,7 +33,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
         }
     }
 
-    fun deleteId(id:Int){
+    fun deleteId(id:String){
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteFromDB(id)
         }

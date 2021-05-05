@@ -15,8 +15,9 @@ import com.example.androidpostindustriaschool.R
 import org.bluecabin.textoo.Textoo
 
 
-class PhotoAdapter(private val urls: ArrayList<String>) :
-        RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+class PhotoAdapter() : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+
+    var urls = ArrayList<String>()
 
     override fun onCreateViewHolder(
             parent: ViewGroup,
@@ -49,6 +50,12 @@ class PhotoAdapter(private val urls: ArrayList<String>) :
     }
 
     override fun getItemCount() = urls.size
+
+    fun updateList(list: List<String>) {
+        urls.clear()
+        urls.addAll(list)
+        notifyDataSetChanged()
+    }
 
     fun deleteItem(position: Int){
         urls.removeAt(position)

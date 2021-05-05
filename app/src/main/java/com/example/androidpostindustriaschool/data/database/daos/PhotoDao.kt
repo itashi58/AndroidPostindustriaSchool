@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface PhotoDao {
 
     @Query("DELETE FROM photo_table WHERE ID = :id")
-     suspend fun delete(id: Int)
+     suspend fun delete(id: String)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
      suspend fun insert(photo: Photo)

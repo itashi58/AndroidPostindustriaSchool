@@ -29,7 +29,7 @@ class MainRepository(private val photoDao: PhotoDao) {
 
     suspend fun insertDB(photos: ArrayList<String>, request: String) {
         for (i in photos.indices) {
-            val photo = Photo(i, photos[i], request)
+            val photo = Photo(photos[i]+request, photos[i], request)
             photoDao.insert(photo)
         }
     }
@@ -38,7 +38,7 @@ class MainRepository(private val photoDao: PhotoDao) {
         photoDao.deleteAll()
     }
 
-    suspend fun deleteFromDB(id: Int) {
+    suspend fun deleteFromDB(id: String) {
         photoDao.delete(id)
     }
 }
