@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.activities
+package com.example.androidpostindustriaschool.ui.main
 
 import android.content.Intent
 import android.net.Uri
@@ -12,8 +12,6 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidpostindustriaschool.R
-import com.example.androidpostindustriaschool.data.PhotoDao
-import com.example.androidpostindustriaschool.data.repository.Repository
 import org.bluecabin.textoo.Textoo
 
 
@@ -23,14 +21,14 @@ class PhotoAdapter(private val urls: ArrayList<String>) :
     override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
-    ): PhotoAdapter.PhotoViewHolder {
+    ): PhotoViewHolder {
         val itemView =
                 LayoutInflater.from(parent.context)
                         .inflate(R.layout.photo_item, parent, false)
         return PhotoViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: PhotoAdapter.PhotoViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         Glide.with(holder.photoWebView.context).load(urls[position])
                 .into(holder.photoWebView)
         holder.linkTextView.text = urls[position]

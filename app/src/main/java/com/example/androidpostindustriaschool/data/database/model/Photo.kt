@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.data.modeldb
+package com.example.androidpostindustriaschool.data.database.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

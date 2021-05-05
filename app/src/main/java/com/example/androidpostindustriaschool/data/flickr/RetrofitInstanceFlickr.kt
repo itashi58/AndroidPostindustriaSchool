@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.data
+package com.example.androidpostindustriaschool.data.flickr
 
 import com.example.androidpostindustriaschool.util.Constants.Companion.API_FLICKR_KEY
 import com.example.androidpostindustriaschool.util.Constants.Companion.BASE_URL

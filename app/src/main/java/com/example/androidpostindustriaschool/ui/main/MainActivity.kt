@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.activities
+package com.example.androidpostindustriaschool.ui.main
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -11,11 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.androidpostindustriaschool.MainViewModel
-import com.example.androidpostindustriaschool.MainViewModelFactory
 import com.example.androidpostindustriaschool.R
-import com.example.androidpostindustriaschool.data.PhotoDatabase
-import com.example.androidpostindustriaschool.data.repository.Repository
+import com.example.androidpostindustriaschool.data.database.DatabaseSQLite
+import com.example.androidpostindustriaschool.data.repository.MainRepository
 import com.example.androidpostindustriaschool.util.Constants
 
 
@@ -39,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBarMain)
         lastRequest = getSharedPreferences(Constants.LAST_REQUEST, Context.MODE_PRIVATE)
 
-        val repository = Repository(PhotoDatabase.getDatabase(this).photoDao())
+        val repository = MainRepository(DatabaseSQLite.getDatabase(this).photoDao())
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
@@ -60,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 else -> {
                     val toast = Toast.makeText(
                         this,
-                        getString(R.string.internal_error),
+                        getString(R.string.title_internal_error),
                         Toast.LENGTH_LONG
                     )
                     toast.show()

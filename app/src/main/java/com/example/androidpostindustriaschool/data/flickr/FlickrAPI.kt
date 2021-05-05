@@ -1,6 +1,6 @@
-package com.example.androidpostindustriaschool.data
+package com.example.androidpostindustriaschool.data.flickr
 
-import com.example.androidpostindustriaschool.data.model.PhotoResponse
+import com.example.androidpostindustriaschool.data.flickr.model.PhotoResponse
 import retrofit2.http.*
 
 

@@ -1,11 +1,11 @@
 package com.example.androidpostindustriaschool.data.repository
 
-import com.example.androidpostindustriaschool.data.PhotoDao
-import com.example.androidpostindustriaschool.data.RetrofitInstanceFlickr
-import com.example.androidpostindustriaschool.data.modeldb.Photo
+import com.example.androidpostindustriaschool.data.database.daos.PhotoDao
+import com.example.androidpostindustriaschool.data.flickr.RetrofitInstanceFlickr
+import com.example.androidpostindustriaschool.data.database.model.Photo
 import java.io.IOException
 
-class Repository(private val photoDao: PhotoDao) {
+class MainRepository(private val photoDao: PhotoDao) {
     private val flickrApi = RetrofitInstanceFlickr.api
 
     /**

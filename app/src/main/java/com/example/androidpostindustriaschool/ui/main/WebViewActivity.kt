@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.activities
+package com.example.androidpostindustriaschool.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -1,26 +1,25 @@
-package com.example.androidpostindustriaschool
+package com.example.androidpostindustriaschool.ui.main
 
 import androidx.lifecycle.*
-import com.example.androidpostindustriaschool.data.modeldb.Photo
-import com.example.androidpostindustriaschool.data.repository.Repository
+import com.example.androidpostindustriaschool.R
+import com.example.androidpostindustriaschool.data.repository.MainRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val repository: Repository) : ViewModel() {
+class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
     val flickrSearchResponse: MutableLiveData<Any> = MutableLiveData()
     val progressBarVisibility: MutableLiveData<Boolean> = MutableLiveData()
-    val allPhotos: LiveData<List<Photo>> = MutableLiveData()
 
     fun searchInFlickr(search: String) {
         if (search.isEmpty()) {
-            flickrSearchResponse.postValue(R.string.search_empty)
+            flickrSearchResponse.postValue(R.string.title_search_empty)
         } else {
             viewModelScope.launch(Dispatchers.IO) {
                 progressBarVisibility.postValue(true)
                 when (val response = repository.getFlickrAPIService(search)) {
-                    null -> flickrSearchResponse.postValue(R.string.no_interet)
-                    ArrayList<String>() -> flickrSearchResponse.postValue(R.string.no_search_result)
+                    null -> flickrSearchResponse.postValue(R.string.title_no_interet)
+                    ArrayList<String>() -> flickrSearchResponse.postValue(R.string.title_no_search_result)
                     else -> {
                         flickrSearchResponse.postValue(response)
                         repository.deleteAllFromDB()
