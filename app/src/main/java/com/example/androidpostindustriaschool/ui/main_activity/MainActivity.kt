@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.ui.main
+package com.example.androidpostindustriaschool.ui.main_activity
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -19,7 +19,6 @@ import com.example.androidpostindustriaschool.util.Constants
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: MainViewModel
     private lateinit var searchButton: Button
     private lateinit var searchInputField: EditText
     private lateinit var photoRecyclerView: RecyclerView
@@ -37,9 +36,10 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBarMain)
         lastRequest = getSharedPreferences(Constants.LAST_REQUEST, Context.MODE_PRIVATE)
 
-        val repository = MainRepository(DatabaseSQLite.getDatabase(this).photoDao())
+        val repository = MainRepository(DatabaseSQLite.getDatabase(this).photoDao(),
+        DatabaseSQLite.getDatabase(this).chosenPhotoDao())
         val viewModelFactory = MainViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
         val adapter = PhotoAdapter()
         photoRecyclerView.adapter = adapter
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.flickrSearchResponse.observe(this, { response ->
             when (response) {
                 is ArrayList<*> -> {
-                    adapter.updateList(response as ArrayList<String>)
+                    adapter.updateList(response as ArrayList<String>, searchInputField.text.toString())
                 }
                 is Int -> {
                     val toast = Toast.makeText(this, getString(response), Toast.LENGTH_LONG)

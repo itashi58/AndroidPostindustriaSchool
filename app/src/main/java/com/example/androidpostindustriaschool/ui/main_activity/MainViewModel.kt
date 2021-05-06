@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.ui.main
+package com.example.androidpostindustriaschool.ui.main_activity
 
 import androidx.lifecycle.*
 import com.example.androidpostindustriaschool.R
@@ -33,7 +33,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
         }
     }
 
-    fun deleteId(id:String){
+    fun deleteId(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteFromDB(id)
         }

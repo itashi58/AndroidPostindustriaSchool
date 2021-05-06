@@ -1,10 +1,10 @@
-package com.example.androidpostindustriaschool.ui.splash_screen
+package com.example.androidpostindustriaschool.ui.splash_screen_activity
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.androidpostindustriaschool.R
-import com.example.androidpostindustriaschool.ui.login.LoginActivity
+import com.example.androidpostindustriaschool.ui.login_activity.LoginActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.ui.main
+package com.example.androidpostindustriaschool.ui.main_activity
 
 import android.content.Intent
 import android.net.Uri
@@ -12,12 +12,15 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidpostindustriaschool.R
+import com.example.androidpostindustriaschool.ui.view_activity.ViewActivity
+import com.example.androidpostindustriaschool.util.Constants.Companion.REQUEST_EXTRA
 import org.bluecabin.textoo.Textoo
 
 
 class PhotoAdapter() : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
     var urls = ArrayList<String>()
+    var request:String = ""
 
     override fun onCreateViewHolder(
             parent: ViewGroup,
@@ -38,9 +41,10 @@ class PhotoAdapter() : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
         holder.linkTextView = Textoo
                 .config(holder.linkTextView)
                 .linkifyAll()
-                .addLinksHandler { view, url ->
-                    val intent = Intent(holder.linkTextView.context, WebViewActivity::class.java).apply {
+                .addLinksHandler { _, url ->
+                    val intent = Intent(holder.linkTextView.context, ViewActivity::class.java).apply {
                         data = Uri.parse(url)
+                        this.putExtra(REQUEST_EXTRA, request)
                     }
                     startActivity(holder.linkTextView.context, intent, Bundle())
                     true
@@ -51,9 +55,10 @@ class PhotoAdapter() : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
     override fun getItemCount() = urls.size
 
-    fun updateList(list: List<String>) {
+    fun updateList(list: List<String>, request:String) {
         urls.clear()
         urls.addAll(list)
+        this.request = request
         notifyDataSetChanged()
     }
 

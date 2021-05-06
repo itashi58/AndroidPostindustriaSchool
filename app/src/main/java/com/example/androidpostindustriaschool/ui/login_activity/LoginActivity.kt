@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.ui.login
+package com.example.androidpostindustriaschool.ui.login_activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.data.database.DatabaseSQLite
 import com.example.androidpostindustriaschool.data.repository.LoginRepository
-import com.example.androidpostindustriaschool.ui.main.MainActivity
+import com.example.androidpostindustriaschool.ui.main_activity.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 
