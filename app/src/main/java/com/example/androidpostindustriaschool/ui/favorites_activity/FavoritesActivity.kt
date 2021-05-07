@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.data.database.DatabaseSQLite
 import com.example.androidpostindustriaschool.data.repository.FavoritesRepository
-import com.example.androidpostindustriaschool.ui.main_activity.MainSwipeToDelete
 
 class FavoritesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,12 +23,12 @@ class FavoritesActivity : AppCompatActivity() {
         val viewModel =
             ViewModelProvider(this, viewModelFactory).get(FavoritesViewModel::class.java)
 
-        val adapter = FavoritesPhotoAdapter()
+        val adapter = FavoritesPhotoAdapter(viewModel)
         favoriteRecyclerView.adapter = adapter
         favoriteRecyclerView.layoutManager =
             GridLayoutManager(this, resources.getInteger(R.integer.span_count))
 
-        val itemTouchHelper = ItemTouchHelper(FavoritesSwipeToDelete(adapter,viewModel))
+        val itemTouchHelper = ItemTouchHelper(FavoritesSwipeToDelete(adapter, viewModel))
         itemTouchHelper.attachToRecyclerView(favoriteRecyclerView)
 
         viewModel.getFavoritesPhoto()

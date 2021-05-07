@@ -4,9 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidpostindustriaschool.data.database.model.ChosenPhoto
-import com.example.androidpostindustriaschool.data.database.model.Photo
 import com.example.androidpostindustriaschool.data.repository.FavoritesRepository
-import com.facebook.stetho.Stetho
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -26,6 +24,10 @@ class FavoritesViewModel(private val repository: FavoritesRepository) : ViewMode
     fun deleteFromChosenPhoto(id:String) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteFromChosenPhotoDB(id)
+            val favoriteGroupedByRequest = repository.getFavoritesPhoto()?.groupBy { chosenPhoto ->
+                chosenPhoto.request
+            }
+            favoritePhotos.postValue(favoriteGroupedByRequest)
         }
     }
 }

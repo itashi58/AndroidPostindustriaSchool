@@ -35,7 +35,7 @@ class ViewActivity : AppCompatActivity() {
         val request = intent.extras?.getString(REQUEST_EXTRA) ?: ""
         if (intent.data != null) {
             Glide.with(this).load(url)
-                    .into(photoView)
+                .into(photoView)
             urlTextView.text = request
         }
 
@@ -45,19 +45,29 @@ class ViewActivity : AppCompatActivity() {
         viewModel.inFavorites.observe(this, { isFavorite ->
             isPhotoFavorite = isFavorite
             if (isPhotoFavorite) {
-                addToFavorites.background = ResourcesCompat.getDrawable(resources, R.drawable.circle_background_yellow, null)
+                addToFavorites.background = ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.circle_background_yellow,
+                    null
+                )
             } else {
-                addToFavorites.background = ResourcesCompat.getDrawable(resources, R.drawable.circle_background_white, null)
+                addToFavorites.background =
+                    ResourcesCompat.getDrawable(resources, R.drawable.circle_background_white, null)
             }
         })
 
         addToFavorites.setOnClickListener {
             if (isPhotoFavorite) {
-                addToFavorites.background = ResourcesCompat.getDrawable(resources, R.drawable.circle_background_white, null)
+                addToFavorites.background =
+                    ResourcesCompat.getDrawable(resources, R.drawable.circle_background_white, null)
                 viewModel.deleteFromChosenPhoto(url, request)
                 isPhotoFavorite = false
             } else {
-                addToFavorites.background = ResourcesCompat.getDrawable(resources, R.drawable.circle_background_yellow, null)
+                addToFavorites.background = ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.circle_background_yellow,
+                    null
+                )
                 viewModel.insertInChosenPhoto(url, request)
                 isPhotoFavorite = true
             }

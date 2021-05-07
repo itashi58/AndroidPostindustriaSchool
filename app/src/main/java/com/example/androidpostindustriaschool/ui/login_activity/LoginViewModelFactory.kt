@@ -5,7 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.androidpostindustriaschool.data.repository.LoginRepository
 
 
-class LoginViewModelFactory(private val loginRepository: LoginRepository) : ViewModelProvider.Factory {
+class LoginViewModelFactory(private val loginRepository: LoginRepository) :
+    ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
 

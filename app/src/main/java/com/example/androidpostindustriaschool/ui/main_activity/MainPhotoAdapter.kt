@@ -17,39 +17,47 @@ import com.example.androidpostindustriaschool.util.Constants.Companion.REQUEST_E
 import org.bluecabin.textoo.Textoo
 
 
-class MainPhotoAdapter() : RecyclerView.Adapter<MainPhotoAdapter.PhotoViewHolder>() {
+class MainPhotoAdapter : RecyclerView.Adapter<MainPhotoAdapter.PhotoViewHolder>() {
 
     var urls = ArrayList<String>()
     var request: String = ""
 
     override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
+        parent: ViewGroup,
+        viewType: Int
     ): PhotoViewHolder {
         val itemView =
-                LayoutInflater.from(parent.context)
-                        .inflate(R.layout.photo_item, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.photo_item, parent, false)
         return PhotoViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        Glide.with(holder.photoWebView.context).load(urls[position])
-                .into(holder.photoWebView)
+        Glide.with(holder.photoImageView.context).load(urls[position])
+            .into(holder.photoImageView)
         holder.linkTextView.text = urls[position]
 
         //make links with intents leading to webViewActivity in every CardView
         holder.linkTextView = Textoo
-                .config(holder.linkTextView)
-                .linkifyAll()
-                .addLinksHandler { _, url ->
-                    val intent = Intent(holder.linkTextView.context, ViewActivity::class.java).apply {
-                        data = Uri.parse(url)
-                        this.putExtra(REQUEST_EXTRA, request)
-                    }
-                    startActivity(holder.linkTextView.context, intent, Bundle())
-                    true
+            .config(holder.linkTextView)
+            .linkifyAll()
+            .addLinksHandler { _, url ->
+                val intent = Intent(holder.linkTextView.context, ViewActivity::class.java).apply {
+                    data = Uri.parse(url)
+                    this.putExtra(REQUEST_EXTRA, request)
                 }
-                .apply()
+                startActivity(holder.linkTextView.context, intent, Bundle())
+                true
+            }
+            .apply()
+ 
+        holder.photoImageView.setOnClickListener{
+            val intent = Intent(holder.linkTextView.context, ViewActivity::class.java).apply {
+                data = Uri.parse(holder.linkTextView.text.toString())
+                this.putExtra(REQUEST_EXTRA, request)
+            }
+            startActivity(holder.linkTextView.context, intent, Bundle())
+        }
 
     }
 
@@ -69,7 +77,7 @@ class MainPhotoAdapter() : RecyclerView.Adapter<MainPhotoAdapter.PhotoViewHolder
 
     class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var linkTextView: TextView = itemView.findViewById(R.id.photoLinkText)
-        var photoWebView: ImageView = itemView.findViewById(R.id.photoImageView)
+        var photoImageView: ImageView = itemView.findViewById(R.id.photoImageView)
 
     }
 

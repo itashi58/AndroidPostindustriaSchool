@@ -1,7 +1,6 @@
 package com.example.androidpostindustriaschool.ui.favorites_activity
 
 import android.text.util.Linkify
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.data.database.model.ChosenPhoto
-import com.example.androidpostindustriaschool.data.database.model.Photo
 
 
-class FavoritesPhotoAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class FavoritesPhotoAdapter(private val viewModel: FavoritesViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var recyclerData = ArrayList<Any>()
 
@@ -46,7 +44,7 @@ class FavoritesPhotoAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (this.getItemViewType(position) == 0 ) {
+        if (this.getItemViewType(position) == 0) {
             holder as PhotoViewHolder
             val photo = recyclerData[position] as ChosenPhoto
             Glide.with(holder.photoImageView.context).load(photo.url)
@@ -70,9 +68,9 @@ class FavoritesPhotoAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     fun updateList(list: Map<String, List<ChosenPhoto>>) {
         val newData = ArrayList<Any>()
-        list.forEach{entry ->
+        list.forEach { entry ->
             newData.add(entry.key)
-            entry.value.forEach {photo ->
+            entry.value.forEach { photo ->
                 newData.add(photo)
             }
         }
@@ -80,10 +78,13 @@ class FavoritesPhotoAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         recyclerData.addAll(newData)
         notifyDataSetChanged()
     }
-
     fun deleteItem(position: Int) {
-        recyclerData.removeAt(position)
-        notifyItemRemoved(position)
+        if (recyclerData[position] is ChosenPhoto) {
+            val photo = recyclerData[position] as ChosenPhoto
+            recyclerData.removeAt(position)
+            viewModel.deleteFromChosenPhoto(photo.id)
+            notifyItemRemoved(position)
+        }
     }
 
     class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
