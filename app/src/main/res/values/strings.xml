@@ -8,7 +8,7 @@
     <string name="title_app_created_by">App created by: Malyi Danylo</string>
 
     <!--    Main Activity -->
-    <string name="title_no_interet">Internet connection error. Please check your connection and try again</string>
+    <string name="title_no_internet">Internet connection error. Please check your connection and try again</string>
     <string name="title_no_search_result">Nothing to show on your request(</string>
     <string name="title_search_empty">Search field is empty</string>
     <string name="title_btnSearch">Search</string>
@@ -27,6 +27,11 @@
     <!--    Favorites Activity-->
     <string name="label_favorites_actionBar">Favorites</string>
     <string name="title_no_favorite_photos">You have no favorite photos</string>
+
+    <!--    History Activity-->
+    <string name="label_history_actionBar">History</string>
+    <string name="title_no_history">You have no history, yet</string>
+    <string name="title_clear_history">Clear History</string>
 
 
 </resources>

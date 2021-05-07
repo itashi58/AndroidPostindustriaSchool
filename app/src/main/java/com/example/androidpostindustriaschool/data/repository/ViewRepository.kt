@@ -1,18 +1,18 @@
 package com.example.androidpostindustriaschool.data.repository
 
-import com.example.androidpostindustriaschool.data.database.daos.ChosenPhotoDao
-import com.example.androidpostindustriaschool.data.database.model.ChosenPhoto
+import com.example.androidpostindustriaschool.data.database.daos.FavoritePhotoDao
+import com.example.androidpostindustriaschool.data.database.model.FavoritePhoto
 
-class ViewRepository(private val chosenPhotoDao: ChosenPhotoDao) {
-    suspend fun insertInChosenPhotoDB(chosenPhoto: ChosenPhoto) {
-        chosenPhotoDao.insert(chosenPhoto)
+class ViewRepository(private val favoritePhotoDao: FavoritePhotoDao) {
+    suspend fun insertInChosenPhotoDB(favoritePhoto: FavoritePhoto) {
+        favoritePhotoDao.insert(favoritePhoto)
     }
 
     suspend fun deleteFromChosenPhotoDB(id: String) {
-        chosenPhotoDao.delete(id)
+        favoritePhotoDao.delete(id)
     }
 
     suspend fun isInChosenPhotoDB(id: String): Int {
-        return chosenPhotoDao.checkForExistence(id)
+        return favoritePhotoDao.checkForExistence(id)
     }
 }

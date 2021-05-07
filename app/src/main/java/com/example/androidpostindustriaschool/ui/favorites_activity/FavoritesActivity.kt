@@ -16,7 +16,7 @@ class FavoritesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites)
 
-        val favoriteRecyclerView = findViewById<RecyclerView>(R.id.recyclerViewFavorites)
+        val favoriteRecyclerView = findViewById<RecyclerView>(R.id.recyclerViewHistory)
 
         val repository = FavoritesRepository(DatabaseSQLite.getDatabase(this).chosenPhotoDao())
         val viewModelFactory = FavoritesViewModelFactory(repository)
@@ -26,15 +26,15 @@ class FavoritesActivity : AppCompatActivity() {
         val adapter = FavoritesPhotoAdapter(viewModel)
         favoriteRecyclerView.adapter = adapter
         favoriteRecyclerView.layoutManager =
-            GridLayoutManager(this, resources.getInteger(R.integer.span_count))
+            GridLayoutManager(this, 1)
 
-        val itemTouchHelper = ItemTouchHelper(FavoritesSwipeToDelete(adapter, viewModel))
+        val itemTouchHelper = ItemTouchHelper(FavoritesSwipeToDelete(adapter))
         itemTouchHelper.attachToRecyclerView(favoriteRecyclerView)
 
         viewModel.getFavoritesPhoto()
 
-        viewModel.favoritePhotos.observe(this, {
-            if (it == null) {
+        viewModel.favoritePhotos.observe(this, { favoritesMap ->
+            if (favoritesMap.isEmpty()) {
                 val toast = Toast.makeText(
                     this,
                     getString(R.string.title_no_favorite_photos),
@@ -42,7 +42,7 @@ class FavoritesActivity : AppCompatActivity() {
                 )
                 toast.show()
             } else {
-                adapter.updateList(it)
+                adapter.updateList(favoritesMap)
             }
         })
 

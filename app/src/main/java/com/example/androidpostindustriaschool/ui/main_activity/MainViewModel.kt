@@ -19,7 +19,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
             viewModelScope.launch(Dispatchers.IO) {
                 progressBarVisibility.postValue(true)
                 when (val response = repository.getFlickrAPIService(search)) {
-                    null -> flickrSearchResponse.postValue(R.string.title_no_interet)
+                    null -> flickrSearchResponse.postValue(R.string.title_no_internet)
                     ArrayList<String>() -> flickrSearchResponse.postValue(R.string.title_no_search_result)
                     else -> {
                         lastRequest = search
@@ -36,6 +36,12 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     fun deleteId(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteFromDB(id)
+        }
+    }
+
+    fun insertInHistory(request: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.insertInHistoryDB(request)
         }
     }
 }

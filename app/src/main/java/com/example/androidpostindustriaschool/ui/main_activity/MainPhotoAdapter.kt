@@ -50,8 +50,8 @@ class MainPhotoAdapter : RecyclerView.Adapter<MainPhotoAdapter.PhotoViewHolder>(
                 true
             }
             .apply()
- 
-        holder.photoImageView.setOnClickListener{
+
+        holder.photoImageView.setOnClickListener {
             val intent = Intent(holder.linkTextView.context, ViewActivity::class.java).apply {
                 data = Uri.parse(holder.linkTextView.text.toString())
                 this.putExtra(REQUEST_EXTRA, request)

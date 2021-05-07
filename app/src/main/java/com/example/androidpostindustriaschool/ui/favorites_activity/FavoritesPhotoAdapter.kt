@@ -10,16 +10,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidpostindustriaschool.R
-import com.example.androidpostindustriaschool.data.database.model.ChosenPhoto
+import com.example.androidpostindustriaschool.data.database.model.FavoritePhoto
 
 
-class FavoritesPhotoAdapter(private val viewModel: FavoritesViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class FavoritesPhotoAdapter(private val viewModel: FavoritesViewModel) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var recyclerData = ArrayList<Any>()
+    private var recyclerData = ArrayList<Any>()
 
 
     override fun getItemViewType(position: Int): Int {
-        return if (recyclerData[position] is ChosenPhoto) {
+        return if (recyclerData[position] is FavoritePhoto) {
             0
         } else {
             1
@@ -46,7 +47,7 @@ class FavoritesPhotoAdapter(private val viewModel: FavoritesViewModel) : Recycle
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (this.getItemViewType(position) == 0) {
             holder as PhotoViewHolder
-            val photo = recyclerData[position] as ChosenPhoto
+            val photo = recyclerData[position] as FavoritePhoto
             Glide.with(holder.photoImageView.context).load(photo.url)
                 .into(holder.photoImageView)
             holder.linkTextView.text = photo.url
@@ -66,7 +67,7 @@ class FavoritesPhotoAdapter(private val viewModel: FavoritesViewModel) : Recycle
 
     override fun getItemCount() = recyclerData.size
 
-    fun updateList(list: Map<String, List<ChosenPhoto>>) {
+    fun updateList(list: Map<String, List<FavoritePhoto>>) {
         val newData = ArrayList<Any>()
         list.forEach { entry ->
             newData.add(entry.key)
@@ -78,9 +79,10 @@ class FavoritesPhotoAdapter(private val viewModel: FavoritesViewModel) : Recycle
         recyclerData.addAll(newData)
         notifyDataSetChanged()
     }
+
     fun deleteItem(position: Int) {
-        if (recyclerData[position] is ChosenPhoto) {
-            val photo = recyclerData[position] as ChosenPhoto
+        if (recyclerData[position] is FavoritePhoto) {
+            val photo = recyclerData[position] as FavoritePhoto
             recyclerData.removeAt(position)
             viewModel.deleteFromChosenPhoto(photo.id)
             notifyItemRemoved(position)

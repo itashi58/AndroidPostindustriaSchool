@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidpostindustriaschool.data.database.model.ChosenPhoto
+import com.example.androidpostindustriaschool.data.database.model.FavoritePhoto
 import com.example.androidpostindustriaschool.data.repository.ViewRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,7 +15,7 @@ class ViewViewModel(private val repository: ViewRepository) : ViewModel() {
 
     fun insertInChosenPhoto(url: String, request: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.insertInChosenPhotoDB(ChosenPhoto(url + request, url, request))
+            repository.insertInChosenPhotoDB(FavoritePhoto(url + request, url, request))
         }
     }
 

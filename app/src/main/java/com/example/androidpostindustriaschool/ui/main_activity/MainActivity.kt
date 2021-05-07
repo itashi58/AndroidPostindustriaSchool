@@ -16,6 +16,7 @@ import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.data.database.DatabaseSQLite
 import com.example.androidpostindustriaschool.data.repository.MainRepository
 import com.example.androidpostindustriaschool.ui.favorites_activity.FavoritesActivity
+import com.example.androidpostindustriaschool.ui.history_activity.HistoryActivity
 import com.example.androidpostindustriaschool.util.Constants
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var lastRequest: SharedPreferences
     private lateinit var favoritesFab: FloatingActionButton
+    private lateinit var historyButton: ImageButton
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,10 +41,14 @@ class MainActivity : AppCompatActivity() {
         photoRecyclerView = findViewById(R.id.recyclerview)
         progressBar = findViewById(R.id.progressBarMain)
         favoritesFab = findViewById(R.id.FavoritesFAB)
+        historyButton = findViewById(R.id.historyBtn)
         lastRequest = getSharedPreferences(Constants.LAST_REQUEST, Context.MODE_PRIVATE)
 
 
-        val repository = MainRepository(DatabaseSQLite.getDatabase(this).photoDao())
+        val repository = MainRepository(
+            DatabaseSQLite.getDatabase(this).photoDao(),
+            DatabaseSQLite.getDatabase(this).requestHistoryDao()
+        )
         val viewModelFactory = MainViewModelFactory(repository)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
@@ -61,6 +67,7 @@ class MainActivity : AppCompatActivity() {
                         response as ArrayList<String>,
                         searchInputField.text.toString()
                     )
+                    viewModel.insertInHistory(searchInputField.text.toString())
                 }
                 is Int -> {
                     val toast = Toast.makeText(this, getString(response), Toast.LENGTH_LONG)
@@ -85,6 +92,10 @@ class MainActivity : AppCompatActivity() {
         searchButton.setOnClickListener {
             val searchRequest = searchInputField.text.toString()
             viewModel.searchInFlickr(searchRequest)
+        }
+
+        historyButton.setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
         }
 
         favoritesFab.setOnClickListener {

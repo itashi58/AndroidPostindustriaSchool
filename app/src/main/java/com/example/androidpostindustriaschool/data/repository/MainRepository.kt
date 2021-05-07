@@ -1,11 +1,12 @@
 package com.example.androidpostindustriaschool.data.repository
 
 import com.example.androidpostindustriaschool.data.database.daos.PhotoDao
+import com.example.androidpostindustriaschool.data.database.daos.RequestHistoryDao
 import com.example.androidpostindustriaschool.data.flickr.RetrofitInstanceFlickr
 import com.example.androidpostindustriaschool.data.database.model.Photo
 import java.io.IOException
 
-class MainRepository(private val photoDao: PhotoDao) {
+class MainRepository(private val photoDao: PhotoDao, private val historyDao: RequestHistoryDao) {
     private val flickrApi = RetrofitInstanceFlickr.api
 
     /**
@@ -40,5 +41,9 @@ class MainRepository(private val photoDao: PhotoDao) {
 
     suspend fun deleteFromDB(id: String) {
         photoDao.delete(id)
+    }
+
+    suspend fun insertInHistoryDB(request: String) {
+        historyDao.insert(request)
     }
 }

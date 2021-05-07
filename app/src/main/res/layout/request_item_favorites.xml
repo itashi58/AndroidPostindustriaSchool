@@ -10,8 +10,8 @@
         android:id="@+id/photoCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:layout_gravity="center"
+        android:layout_margin="10dp"
         app:cardBackgroundColor="@color/teal_200"
         app:cardCornerRadius="20dp">
 
@@ -25,9 +25,10 @@
                 android:id="@+id/requestLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:padding="5dp"
                 android:textAlignment="center"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
         </LinearLayout>
 

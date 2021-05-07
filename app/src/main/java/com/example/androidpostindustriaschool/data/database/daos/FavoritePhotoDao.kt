@@ -1,21 +1,20 @@
 package com.example.androidpostindustriaschool.data.database.daos
 
 import androidx.room.*
-import com.example.androidpostindustriaschool.data.database.model.ChosenPhoto
-import com.example.androidpostindustriaschool.data.database.model.Photo
+import com.example.androidpostindustriaschool.data.database.model.FavoritePhoto
 
 
 @Dao
-interface ChosenPhotoDao {
+interface FavoritePhotoDao {
 
     @Query("DELETE FROM chosen_photo_table WHERE ID = :id")
     suspend fun delete(id: String)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(photo: ChosenPhoto)
+    suspend fun insert(photo: FavoritePhoto)
 
     @Query("SELECT * FROM chosen_photo_table")
-    suspend fun getAllChosenPhotos(): List<ChosenPhoto>?
+    suspend fun getAllChosenPhotos(): List<FavoritePhoto>
 
     @Query("SELECT EXISTS(SELECT * FROM chosen_photo_table WHERE ID = :id)")
     suspend fun checkForExistence(id: String): Int
