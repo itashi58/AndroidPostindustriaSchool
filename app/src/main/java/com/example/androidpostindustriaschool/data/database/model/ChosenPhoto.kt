@@ -5,9 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "chosen_photo_table")
-data class ChosenPhoto (
+data class ChosenPhoto(
         //id is a url+request
-        @PrimaryKey @ColumnInfo(name = "ID") val id:String,
-        @ColumnInfo(name = "URL") val urls:String,
-        @ColumnInfo(name = "REQUEST") val request:String
+        @PrimaryKey @ColumnInfo(name = "ID") val id: String,
+        @ColumnInfo(name = "URL") val url: String,
+        @ColumnInfo(name = "REQUEST") val request: String
 )

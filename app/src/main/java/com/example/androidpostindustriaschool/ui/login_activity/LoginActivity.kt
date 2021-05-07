@@ -18,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var login: EditText
     private lateinit var password: EditText
-    private lateinit var incorrectData:TextView
+    private lateinit var incorrectData: TextView
     private lateinit var loginBtn: Button
     private lateinit var viewModel: LoginViewModel
 
@@ -45,11 +45,11 @@ class LoginActivity : AppCompatActivity() {
                 viewModel.insertUserInfo(login.text.toString(), password.text.toString())
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
-            } else if(!isLoginCorrect && !isPasswordCorrect) {
+            } else if (!isLoginCorrect && !isPasswordCorrect) {
                 incorrectData.text = getString(R.string.title_invalid_login_and_password)
-            } else if(!isLoginCorrect && isPasswordCorrect){
+            } else if (!isLoginCorrect && isPasswordCorrect) {
                 incorrectData.text = getString(R.string.title_invalid_login)
-            } else if(isLoginCorrect && !isPasswordCorrect){
+            } else if (isLoginCorrect && !isPasswordCorrect) {
                 incorrectData.text = getString(R.string.title_invalid_password)
             }
         }

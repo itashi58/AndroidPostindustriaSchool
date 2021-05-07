@@ -26,9 +26,9 @@ abstract class DatabaseSQLite : RoomDatabase() {
         fun getDatabase(context: Context): DatabaseSQLite {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    DatabaseSQLite::class.java,
-                    "database"
+                        context.applicationContext,
+                        DatabaseSQLite::class.java,
+                        "database"
                 ).build()
                 INSTANCE = instance
                 instance

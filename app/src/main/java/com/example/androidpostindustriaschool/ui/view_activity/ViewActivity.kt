@@ -2,8 +2,6 @@ package com.example.androidpostindustriaschool.ui.view_activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.util.Linkify
-import android.util.Log
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -27,7 +25,7 @@ class ViewActivity : AppCompatActivity() {
 
         photoView = findViewById(R.id.photoView)
         urlTextView = findViewById(R.id.urlTextView)
-        addToFavorites = findViewById(R.id.FavoritesBtn)
+        addToFavorites = findViewById(R.id.favoritesDeleteBtn)
 
         val repository = ViewRepository(DatabaseSQLite.getDatabase(this).chosenPhotoDao())
         val viewModelFactory = ViewViewModelFactory(repository)
@@ -38,14 +36,13 @@ class ViewActivity : AppCompatActivity() {
         if (intent.data != null) {
             Glide.with(this).load(url)
                     .into(photoView)
-            urlTextView.text = url
-            Linkify.addLinks(urlTextView, Linkify.WEB_URLS)
+            urlTextView.text = request
         }
 
         viewModel.isInChosenPhoto(url + request)
         var isPhotoFavorite = false
 
-        viewModel.inFavorites.observe(this, {isFavorite->
+        viewModel.inFavorites.observe(this, { isFavorite ->
             isPhotoFavorite = isFavorite
             if (isPhotoFavorite) {
                 addToFavorites.background = ResourcesCompat.getDrawable(resources, R.drawable.circle_background_yellow, null)
@@ -55,14 +52,14 @@ class ViewActivity : AppCompatActivity() {
         })
 
         addToFavorites.setOnClickListener {
-            if (isPhotoFavorite){
+            if (isPhotoFavorite) {
                 addToFavorites.background = ResourcesCompat.getDrawable(resources, R.drawable.circle_background_white, null)
-                viewModel.deleteFromChosenPhoto(url,request)
-                isPhotoFavorite =false
+                viewModel.deleteFromChosenPhoto(url, request)
+                isPhotoFavorite = false
             } else {
                 addToFavorites.background = ResourcesCompat.getDrawable(resources, R.drawable.circle_background_yellow, null)
-                viewModel.insertInChosenPhoto(url,request)
-                isPhotoFavorite =true
+                viewModel.insertInChosenPhoto(url, request)
+                isPhotoFavorite = true
             }
         }
 

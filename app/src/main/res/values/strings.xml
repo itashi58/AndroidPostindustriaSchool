@@ -2,10 +2,12 @@
 
 
     <string name="app_name">AndroidPostindustriaSchool</string>
+
+    <!--    Splash Screen Activity-->
     <string name="logo_md_content_description">Logo MD</string>
     <string name="title_app_created_by">App created by: Malyi Danylo</string>
 
-    <!--    Main Activity Strings-->
+    <!--    Main Activity -->
     <string name="title_no_interet">Internet connection error. Please check your connection and try again</string>
     <string name="title_no_search_result">Nothing to show on your request(</string>
     <string name="title_search_empty">Search field is empty</string>
@@ -13,7 +15,7 @@
     <string name="hint_for_search_field">Search in Flickr</string>
     <string name="title_internal_error">Internal error, connect with developers team</string>
 
-    <!--    Login Activity Strings-->
+    <!--    Login Activity -->
     <string name="title_activity_login">LoginActivity</string>
     <string name="hint_password">Password</string>
     <string name="hint_login">Login</string>
@@ -21,6 +23,10 @@
     <string name="title_invalid_password">Password must be at least 6 characters</string>
     <string name="title_invalid_login">"Login field is empty"</string>
     <string name="title_invalid_login_and_password">"Login field is empty \nPassword must be at least 6 characters"</string>
+
+    <!--    Favorites Activity-->
+    <string name="label_favorites_actionBar">Favorites</string>
+    <string name="title_no_favorite_photos">You have no favorite photos</string>
 
 
 </resources>

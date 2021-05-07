@@ -12,6 +12,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
+        <activity android:name=".ui.favorites_activity.FavoritesActivity"
+            android:theme="@style/Theme.AndroidPostindustriaSchoolFavorites"
+            android:label="@string/label_favorites_actionBar"/>
         <activity
             android:name=".ui.login_activity.LoginActivity"
             android:label="@string/title_activity_login"
@@ -20,14 +23,17 @@
             android:name=".ui.view_activity.ViewActivity"
             android:theme="@style/Theme.AndroidPostindustriaSchool"
             tools:ignore="AppLinkUrlError">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
 
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
 
-<!--                <data android:scheme="https" />-->
-<!--                <data android:scheme="http" />-->
-<!--            </intent-filter>-->
+
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+
+
+            <!-- <data android:scheme="https" /> -->
+            <!-- <data android:scheme="http" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".ui.splash_screen_activity.SplashScreenActivity"

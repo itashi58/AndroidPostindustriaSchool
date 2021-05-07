@@ -15,8 +15,8 @@ interface ChosenPhotoDao {
     suspend fun insert(photo: ChosenPhoto)
 
     @Query("SELECT * FROM chosen_photo_table")
-    fun getAllChosenPhotos(): List<Photo>?
+    suspend fun getAllChosenPhotos(): List<ChosenPhoto>?
 
     @Query("SELECT EXISTS(SELECT * FROM chosen_photo_table WHERE ID = :id)")
-    suspend fun checkForExistence(id: String):Int
+    suspend fun checkForExistence(id: String): Int
 }

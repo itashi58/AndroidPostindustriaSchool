@@ -17,10 +17,10 @@ import com.example.androidpostindustriaschool.util.Constants.Companion.REQUEST_E
 import org.bluecabin.textoo.Textoo
 
 
-class PhotoAdapter() : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+class MainPhotoAdapter() : RecyclerView.Adapter<MainPhotoAdapter.PhotoViewHolder>() {
 
     var urls = ArrayList<String>()
-    var request:String = ""
+    var request: String = ""
 
     override fun onCreateViewHolder(
             parent: ViewGroup,
@@ -55,23 +55,22 @@ class PhotoAdapter() : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
     override fun getItemCount() = urls.size
 
-    fun updateList(list: List<String>, request:String) {
+    fun updateList(list: List<String>, request: String) {
         urls.clear()
         urls.addAll(list)
         this.request = request
         notifyDataSetChanged()
     }
 
-    fun deleteItem(position: Int){
+    fun deleteItem(position: Int) {
         urls.removeAt(position)
         notifyItemRemoved(position)
     }
 
     class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var linkTextView: TextView = itemView.findViewById(R.id.photoLinkText)
-        var photoWebView: ImageView = itemView.findViewById(R.id.photoWebView)
+        var photoWebView: ImageView = itemView.findViewById(R.id.photoImageView)
 
     }
-
 
 }

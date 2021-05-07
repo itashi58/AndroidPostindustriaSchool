@@ -8,7 +8,6 @@ import com.example.androidpostindustriaschool.data.database.model.ChosenPhoto
 import com.example.androidpostindustriaschool.data.repository.ViewRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.IOException
 
 class ViewViewModel(private val repository: ViewRepository) : ViewModel() {
 
@@ -22,7 +21,7 @@ class ViewViewModel(private val repository: ViewRepository) : ViewModel() {
 
     fun deleteFromChosenPhoto(url: String, request: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteFromChosenPhotoDB(url+request)
+            repository.deleteFromChosenPhotoDB(url + request)
         }
     }
 

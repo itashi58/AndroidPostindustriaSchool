@@ -1,6 +1,7 @@
 package com.example.androidpostindustriaschool.ui.main_activity
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.data.database.DatabaseSQLite
 import com.example.androidpostindustriaschool.data.repository.MainRepository
+import com.example.androidpostindustriaschool.ui.favorites_activity.FavoritesActivity
 import com.example.androidpostindustriaschool.util.Constants
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var photoRecyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var lastRequest: SharedPreferences
+    private lateinit var favoritesFab: FloatingActionButton
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,24 +38,29 @@ class MainActivity : AppCompatActivity() {
         searchInputField = findViewById(R.id.searchEditText)
         photoRecyclerView = findViewById(R.id.recyclerview)
         progressBar = findViewById(R.id.progressBarMain)
+        favoritesFab = findViewById(R.id.FavoritesFAB)
         lastRequest = getSharedPreferences(Constants.LAST_REQUEST, Context.MODE_PRIVATE)
 
-        val repository = MainRepository(DatabaseSQLite.getDatabase(this).photoDao(),
-        DatabaseSQLite.getDatabase(this).chosenPhotoDao())
+
+        val repository = MainRepository(DatabaseSQLite.getDatabase(this).photoDao())
         val viewModelFactory = MainViewModelFactory(repository)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
-        val adapter = PhotoAdapter()
+        val adapter = MainPhotoAdapter()
         photoRecyclerView.adapter = adapter
-        photoRecyclerView.layoutManager = GridLayoutManager(this, resources.getInteger(R.integer.span_count))
+        photoRecyclerView.layoutManager =
+            GridLayoutManager(this, resources.getInteger(R.integer.span_count))
 
-        val itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter, viewModel))
+        val itemTouchHelper = ItemTouchHelper(MainSwipeToDelete(adapter, viewModel))
         itemTouchHelper.attachToRecyclerView(photoRecyclerView)
 
         viewModel.flickrSearchResponse.observe(this, { response ->
             when (response) {
                 is ArrayList<*> -> {
-                    adapter.updateList(response as ArrayList<String>, searchInputField.text.toString())
+                    adapter.updateList(
+                        response as ArrayList<String>,
+                        searchInputField.text.toString()
+                    )
                 }
                 is Int -> {
                     val toast = Toast.makeText(this, getString(response), Toast.LENGTH_LONG)
@@ -78,6 +87,9 @@ class MainActivity : AppCompatActivity() {
             viewModel.searchInFlickr(searchRequest)
         }
 
+        favoritesFab.setOnClickListener {
+            startActivity(Intent(this, FavoritesActivity::class.java))
+        }
     }
 
     override fun onPause() {

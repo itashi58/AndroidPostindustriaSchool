@@ -1,13 +1,11 @@
 package com.example.androidpostindustriaschool.data.repository
 
-import com.example.androidpostindustriaschool.data.database.daos.ChosenPhotoDao
 import com.example.androidpostindustriaschool.data.database.daos.PhotoDao
-import com.example.androidpostindustriaschool.data.database.model.ChosenPhoto
 import com.example.androidpostindustriaschool.data.flickr.RetrofitInstanceFlickr
 import com.example.androidpostindustriaschool.data.database.model.Photo
 import java.io.IOException
 
-class MainRepository(private val photoDao: PhotoDao, private val chosenPhotoDao: ChosenPhotoDao) {
+class MainRepository(private val photoDao: PhotoDao) {
     private val flickrApi = RetrofitInstanceFlickr.api
 
     /**
@@ -31,7 +29,7 @@ class MainRepository(private val photoDao: PhotoDao, private val chosenPhotoDao:
 
     suspend fun insertDB(photos: ArrayList<String>, request: String) {
         for (i in photos.indices) {
-            val photo = Photo(photos[i]+request, photos[i], request)
+            val photo = Photo(photos[i] + request, photos[i], request)
             photoDao.insert(photo)
         }
     }

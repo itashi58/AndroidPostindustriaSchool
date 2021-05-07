@@ -10,8 +10,8 @@
         android:id="@+id/searchEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:hint="@string/hint_for_search_field"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,11 +34,11 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBtn"
-        tools:listitem="@layout/photo_item"
-        />
-
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/photo_item" />
 
     <ProgressBar
         android:id="@+id/progressBarMain"
@@ -50,6 +50,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBtn" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/FavoritesFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_baseline_star_yellow"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="35dp"
+        app:tint="@color/yellow" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

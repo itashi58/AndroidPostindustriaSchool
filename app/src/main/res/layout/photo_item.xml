@@ -10,11 +10,12 @@
         android:id="@+id/photoCard"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="15dp"
         app:cardBackgroundColor="#FFDEAD"
-        card_view:cardCornerRadius="6dp">
+        card_view:cardCornerRadius="20dp">
 
 
         <LinearLayout
@@ -23,11 +24,11 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/photoWebView"
+                android:id="@+id/photoImageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
                 android:layout_weight="0.85" />
 
             <TextView

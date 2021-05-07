@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
-    fun insertUserInfo(login:String, password:String){
+    fun insertUserInfo(login: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
             loginRepository.insertInUsers(login, password)
         }

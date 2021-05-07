@@ -8,15 +8,15 @@ import kotlinx.coroutines.flow.Flow
 interface PhotoDao {
 
     @Query("DELETE FROM photo_table WHERE ID = :id")
-     suspend fun delete(id: String)
+    suspend fun delete(id: String)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-     suspend fun insert(photo: Photo)
+    suspend fun insert(photo: Photo)
 
     @Query("SELECT * FROM photo_table")
-      fun getAllPhotos(): Flow<List<Photo>?>
+    fun getAllPhotos(): Flow<List<Photo>?>
 
     @Query("DELETE FROM photo_table")
-     suspend fun deleteAll()
+    suspend fun deleteAll()
 
 }
