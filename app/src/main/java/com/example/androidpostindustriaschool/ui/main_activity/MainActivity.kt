@@ -19,6 +19,9 @@ import com.example.androidpostindustriaschool.ui.favorites_activity.FavoritesAct
 import com.example.androidpostindustriaschool.ui.history_activity.HistoryActivity
 import com.example.androidpostindustriaschool.ui.maps_activity.MapsActivity
 import com.example.androidpostindustriaschool.util.Constants
+import com.example.androidpostindustriaschool.util.Constants.Companion.GEOLOCATION_SEARCH
+import com.example.androidpostindustriaschool.util.Constants.Companion.LATITUDE_EXTRA
+import com.example.androidpostindustriaschool.util.Constants.Companion.LONGITUDE_EXTRA
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -107,6 +110,15 @@ class MainActivity : AppCompatActivity() {
 
         mapsButton.setOnClickListener {
             startActivity(Intent(this, MapsActivity::class.java))
+        }
+
+        if (intent.hasExtra(LATITUDE_EXTRA) && intent.hasExtra(LONGITUDE_EXTRA)) {
+            searchInputField.setText(GEOLOCATION_SEARCH)
+            Log.d("search",searchInputField.text.toString())
+            viewModel.searchInFlickrLocation(
+                intent.getDoubleExtra(LATITUDE_EXTRA, 0.0),
+                intent.getDoubleExtra(LONGITUDE_EXTRA, 0.0)
+            )
         }
     }
 

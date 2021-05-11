@@ -9,4 +9,10 @@ interface FlickrAPI {
     @GET("services/rest/?method=flickr.photos.search")
     suspend fun search(@Query("text") search: String): PhotoResponse
 
+    @GET("services/rest/?method=flickr.photos.search")
+    suspend fun searchByLocation(
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double
+    ): PhotoResponse
+
 }

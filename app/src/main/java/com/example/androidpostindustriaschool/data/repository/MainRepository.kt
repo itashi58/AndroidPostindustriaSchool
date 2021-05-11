@@ -15,9 +15,25 @@ class MainRepository(private val photoDao: PhotoDao, private val historyDao: Req
      * in case of network errors will return null
      * both cases are handled in MainViewModel
      */
-    suspend fun getFlickrAPIService(searchRequest: String): ArrayList<String>? {
+    suspend fun getFlickrAPIResponse(searchRequest: String): ArrayList<String>? {
         return try {
             val apiResponse = flickrApi.search(searchRequest)
+            val urls = ArrayList<String>()
+            apiResponse.photos.photo.forEach {
+                urls.add("https://farm" + it.farm + ".staticflickr.com/" + it.server + "/" + it.id + "_" + it.secret + ".jpg" + "\n")
+            }
+            urls
+        } catch (e: IOException) {
+            null
+        }
+    }
+
+    suspend fun getFlickrAPIResponseLocation(
+        latitude: Double,
+        longitude: Double
+    ): ArrayList<String>? {
+        return try {
+            val apiResponse = flickrApi.searchByLocation(latitude, longitude)
             val urls = ArrayList<String>()
             apiResponse.photos.photo.forEach {
                 urls.add("https://farm" + it.farm + ".staticflickr.com/" + it.server + "/" + it.id + "_" + it.secret + ".jpg" + "\n")

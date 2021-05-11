@@ -6,11 +6,9 @@ class Constants {
         const val API_FLICKR_KEY = "28077a9199b1397951682e97c7b26194"
         const val LAST_REQUEST = "lastRequest"
         const val REQUEST_EXTRA = "request_extra"
-
-        //maps constants
-        const val LOCATION_REQUEST_CODE = 1
-        const val LOCATION_REFRESH_TIME: Long = 60000
-        const val LOCATION_REFRESH_DISTANCE: Float = 1F
-
+        const val LONGITUDE_EXTRA = "longitude"
+        const val LATITUDE_EXTRA = "latitude"
+        const val GEOLOCATION_SEARCH = "Geolocation search"
+        const val PERMISSION_LOCATION_CODE = 1
     }
 }

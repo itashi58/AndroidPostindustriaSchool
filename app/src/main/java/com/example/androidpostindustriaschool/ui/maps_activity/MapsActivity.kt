@@ -11,10 +11,13 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.databinding.ActivityMapsBinding
 import com.example.androidpostindustriaschool.ui.main_activity.MainActivity
+import com.example.androidpostindustriaschool.util.Constants.Companion.LATITUDE_EXTRA
+import com.example.androidpostindustriaschool.util.Constants.Companion.LONGITUDE_EXTRA
+import com.example.androidpostindustriaschool.util.Constants.Companion.PERMISSION_LOCATION_CODE
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -50,8 +53,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         searchBtn.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("latitude", latitude)
-            intent.putExtra("latitude", longitude)
+            intent.putExtra(LATITUDE_EXTRA, latitude)
+            intent.putExtra(LONGITUDE_EXTRA, longitude)
             startActivity(intent)
         }
     }
@@ -69,19 +72,44 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
         mMap.uiSettings.isZoomControlsEnabled = true
 
-        if (ActivityCompat.checkSelfPermission(
+        if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
-            locationPermissionNotGranted()
-        } else {
             locationPermissionGranted()
+        } else {
+            requestPermissions(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSION_LOCATION_CODE
+            )
         }
+    }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            PERMISSION_LOCATION_CODE -> {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                ) {
+                    locationPermissionGranted()
+                } else {
+                    locationPermissionNotGranted()
+                }
+                return
+            }
+
+            // Add other 'when' lines to check for other
+            // permissions this app might request.
+            else -> {
+                // Ignore all other requests.
+            }
+        }
     }
 
 
@@ -89,9 +117,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun locationPermissionGranted() {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-        val criteria = Criteria();
-        criteria.accuracy = Criteria.ACCURACY_FINE;
-        val providerName = locationManager.getBestProvider(criteria, true);
+        val criteria = Criteria()
+        criteria.accuracy = Criteria.ACCURACY_FINE
+        val providerName = locationManager.getBestProvider(criteria, true)
 
         if (providerName != null) {
             val lastLocation = locationManager.getLastKnownLocation(providerName)
