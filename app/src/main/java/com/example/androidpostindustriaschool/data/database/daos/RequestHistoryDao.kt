@@ -12,6 +12,6 @@ interface RequestHistoryDao {
     @Query("INSERT INTO request_history_table (Request) VALUES(:request)")
     suspend fun insert(request: String)
 
-    @Query("SELECT * FROM request_history_table")
+    @Query("SELECT * FROM request_history_table ORDER BY id DESC")
     suspend fun getAllRequests(): Array<RequestHistory>
 }

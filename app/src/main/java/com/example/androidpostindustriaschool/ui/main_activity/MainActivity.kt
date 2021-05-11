@@ -22,6 +22,7 @@ import com.example.androidpostindustriaschool.util.Constants
 import com.example.androidpostindustriaschool.util.Constants.Companion.GEOLOCATION_SEARCH
 import com.example.androidpostindustriaschool.util.Constants.Companion.LATITUDE_EXTRA
 import com.example.androidpostindustriaschool.util.Constants.Companion.LONGITUDE_EXTRA
+import com.example.androidpostindustriaschool.util.Constants.Companion.MAPS_REQUEST_CODE
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var favoritesFab: FloatingActionButton
     private lateinit var historyButton: ImageButton
     private lateinit var mapsButton: ImageButton
+    private lateinit var viewModel: MainViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             DatabaseSQLite.getDatabase(this).requestHistoryDao()
         )
         val viewModelFactory = MainViewModelFactory(repository)
-        val viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
         val adapter = MainPhotoAdapter()
         photoRecyclerView.adapter = adapter
@@ -109,32 +111,42 @@ class MainActivity : AppCompatActivity() {
         }
 
         mapsButton.setOnClickListener {
-            startActivity(Intent(this, MapsActivity::class.java))
+            startActivityForResult(Intent(this, MapsActivity::class.java), MAPS_REQUEST_CODE)
         }
 
-        if (intent.hasExtra(LATITUDE_EXTRA) && intent.hasExtra(LONGITUDE_EXTRA)) {
-            searchInputField.setText(GEOLOCATION_SEARCH)
-            Log.d("search",searchInputField.text.toString())
-            viewModel.searchInFlickrLocation(
-                intent.getDoubleExtra(LATITUDE_EXTRA, 0.0),
-                intent.getDoubleExtra(LONGITUDE_EXTRA, 0.0)
-            )
-        }
     }
 
     override fun onPause() {
         super.onPause()
-
         val editor = lastRequest.edit()
         editor.putString(Constants.LAST_REQUEST, searchInputField.text.toString()).apply()
     }
 
     override fun onResume() {
         super.onResume()
-
         if (lastRequest.contains(Constants.LAST_REQUEST)) {
             searchInputField.setText(lastRequest.getString(Constants.LAST_REQUEST, ""))
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.d("stops", "onResult")
+        if (requestCode == MAPS_REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
+                if (data.hasExtra(LATITUDE_EXTRA) && data.hasExtra(LONGITUDE_EXTRA)) {
+                    //setting lastRequest as GEOLOCATION_SEARCH to be shown in search field and in history
+                    val editor = lastRequest.edit()
+                    editor.putString(Constants.LAST_REQUEST, GEOLOCATION_SEARCH).apply()
+
+                    viewModel.searchInFlickrLocation(
+                        data.getDoubleExtra(LATITUDE_EXTRA, 0.0),
+                        data.getDoubleExtra(LONGITUDE_EXTRA, 0.0)
+                    )
+                }
+            }
+        }
+
     }
 
     //controls progress bar visibility

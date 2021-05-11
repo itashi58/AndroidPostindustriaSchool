@@ -55,7 +55,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra(LATITUDE_EXTRA, latitude)
             intent.putExtra(LONGITUDE_EXTRA, longitude)
-            startActivity(intent)
+            setResult(RESULT_OK, intent)
+            finish()
         }
     }
 

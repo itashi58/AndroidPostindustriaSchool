@@ -10,5 +10,6 @@ class Constants {
         const val LATITUDE_EXTRA = "latitude"
         const val GEOLOCATION_SEARCH = "Geolocation search"
         const val PERMISSION_LOCATION_CODE = 1
+        const val MAPS_REQUEST_CODE = 100
     }
 }
