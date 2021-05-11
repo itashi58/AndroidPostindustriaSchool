@@ -27,6 +27,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/searchEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/teal_200"
         app:srcCompat="@android:drawable/ic_menu_recent_history" />
 
     <Button
@@ -36,7 +37,8 @@
         android:text="@string/title_btnSearch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/searchEditText"
+        android:textColor="@color/white"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -71,6 +73,19 @@
         android:src="@drawable/ic_baseline_star_yellow"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="35dp"
+        app:tint="@color/yellow" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/mapFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_baseline_map_24"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@+id/FavoritesFAB"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="35dp"
         app:tint="@color/yellow" />

@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "chosen_photo_table")
+@Entity(tableName = "favorite_photo_table")
 data class FavoritePhoto(
     //id is a url+request
     @PrimaryKey @ColumnInfo(name = "ID") val id: String,

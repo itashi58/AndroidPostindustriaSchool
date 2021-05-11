@@ -7,15 +7,15 @@ import com.example.androidpostindustriaschool.data.database.model.FavoritePhoto
 @Dao
 interface FavoritePhotoDao {
 
-    @Query("DELETE FROM chosen_photo_table WHERE ID = :id")
+    @Query("DELETE FROM favorite_photo_table WHERE ID = :id")
     suspend fun delete(id: String)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(photo: FavoritePhoto)
 
-    @Query("SELECT * FROM chosen_photo_table")
+    @Query("SELECT * FROM favorite_photo_table")
     suspend fun getAllChosenPhotos(): List<FavoritePhoto>
 
-    @Query("SELECT EXISTS(SELECT * FROM chosen_photo_table WHERE ID = :id)")
+    @Query("SELECT EXISTS(SELECT * FROM favorite_photo_table WHERE ID = :id)")
     suspend fun checkForExistence(id: String): Int
 }

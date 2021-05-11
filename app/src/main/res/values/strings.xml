@@ -32,6 +32,13 @@
     <string name="label_history_actionBar">History</string>
     <string name="title_no_history">You have no history, yet</string>
     <string name="title_clear_history">Clear History</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="search_photos_in_current_location">Search photos in current location</string>
+
+    <!--    Maps Activity-->
+    <string name="title_no_last_location">No last location found, location set to Kiev</string>
+    <string name="title_turn_on_location">Turn on geolocation, location set to Kiev </string>
+    <string name="title_no_location_permission">Location permission not granted, location set to Kiev</string>
 
 
 </resources>

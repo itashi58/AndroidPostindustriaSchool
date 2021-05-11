@@ -17,6 +17,7 @@ import com.example.androidpostindustriaschool.data.database.DatabaseSQLite
 import com.example.androidpostindustriaschool.data.repository.MainRepository
 import com.example.androidpostindustriaschool.ui.favorites_activity.FavoritesActivity
 import com.example.androidpostindustriaschool.ui.history_activity.HistoryActivity
+import com.example.androidpostindustriaschool.ui.maps_activity.MapsActivity
 import com.example.androidpostindustriaschool.util.Constants
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var lastRequest: SharedPreferences
     private lateinit var favoritesFab: FloatingActionButton
     private lateinit var historyButton: ImageButton
+    private lateinit var mapsButton: ImageButton
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBarMain)
         favoritesFab = findViewById(R.id.FavoritesFAB)
         historyButton = findViewById(R.id.historyBtn)
+        mapsButton = findViewById(R.id.mapFAB)
         lastRequest = getSharedPreferences(Constants.LAST_REQUEST, Context.MODE_PRIVATE)
 
 
@@ -100,6 +103,10 @@ class MainActivity : AppCompatActivity() {
 
         favoritesFab.setOnClickListener {
             startActivity(Intent(this, FavoritesActivity::class.java))
+        }
+
+        mapsButton.setOnClickListener {
+            startActivity(Intent(this, MapsActivity::class.java))
         }
     }
 
