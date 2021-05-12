@@ -13,12 +13,16 @@ import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.data.database.model.FavoritePhoto
 
 
+// TODO: 5/12/21 Don't pass ViewModel into adapter. Pass a listener instead and handle action in activity / fragment
+//  Check this in every adapter
 class FavoritesPhotoAdapter(private val viewModel: FavoritesViewModel) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    // TODO: 5/12/21 Omit using Any as it is not obvious what types this list can contain 
     private var recyclerData = ArrayList<Any>()
 
 
+    // TODO: 5/12/21 avoid hardcode. Provide a suitable name for 1 and 0
     override fun getItemViewType(position: Int): Int {
         return if (recyclerData[position] is FavoritePhoto) {
             0
@@ -45,6 +49,7 @@ class FavoritesPhotoAdapter(private val viewModel: FavoritesViewModel) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        // TODO: 5/12/21 move viewBinding into holder.bindView method
         if (this.getItemViewType(position) == 0) {
             holder as PhotoViewHolder
             val photo = recyclerData[position] as FavoritePhoto
@@ -67,6 +72,7 @@ class FavoritesPhotoAdapter(private val viewModel: FavoritesViewModel) :
 
     override fun getItemCount() = recyclerData.size
 
+    // TODO: 5/12/21 Pass a ready to display list. Don't do any list transformation in adapter
     fun updateList(list: Map<String, List<FavoritePhoto>>) {
         val newData = ArrayList<Any>()
         list.forEach { entry ->

@@ -1,3 +1,5 @@
+// TODO: 5/12/21 don't use underscore in package names
+//  You can remove _activity postfix and add nested view package which will contain activity, adapters, etc.
 package com.example.androidpostindustriaschool.ui.favorites_activity
 
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +14,7 @@ import com.example.androidpostindustriaschool.data.database.DatabaseSQLite
 import com.example.androidpostindustriaschool.data.repository.FavoritesRepository
 
 class FavoritesActivity : AppCompatActivity() {
+    // TODO: 5/12/21 Keep onCreate as simple as possible. Split logic into separate methods. Check this everywhere.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites)
@@ -33,6 +36,7 @@ class FavoritesActivity : AppCompatActivity() {
 
         viewModel.getFavoritesPhoto()
 
+        // TODO: 5/12/21 Separate error handling from response handling
         viewModel.favoritePhotos.observe(this, { favoritesMap ->
             if (favoritesMap.isEmpty()) {
                 val toast = Toast.makeText(

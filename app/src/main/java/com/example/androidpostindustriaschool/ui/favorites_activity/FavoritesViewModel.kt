@@ -24,6 +24,7 @@ class FavoritesViewModel(private val repository: FavoritesRepository) : ViewMode
     fun deleteFromChosenPhoto(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteFromChosenPhotoDB(id)
+            // TODO: 5/12/21 below code block is the same as above
             val favoriteGroupedByRequest = repository.getFavoritesPhoto().groupBy { chosenPhoto ->
                 chosenPhoto.request
             }

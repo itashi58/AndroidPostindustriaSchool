@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
 class FavoritesSwipeToDelete(
+    // TODO: 5/12/21 do we need to pass an adapter here? Can we access adapter from onSwiped params?
     private var adapter: FavoritesPhotoAdapter,
 ) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 

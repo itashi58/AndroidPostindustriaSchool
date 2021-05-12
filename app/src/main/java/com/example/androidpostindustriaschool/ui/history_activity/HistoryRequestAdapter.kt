@@ -9,6 +9,7 @@ import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.data.database.model.RequestHistory
 
 
+// TODO: 5/12/21 don't pass viewModel in adapter
 class HistoryRequestAdapter(private val viewModel: HistoryViewModel) :
     RecyclerView.Adapter<HistoryRequestAdapter.RequestViewHolder>() {
 

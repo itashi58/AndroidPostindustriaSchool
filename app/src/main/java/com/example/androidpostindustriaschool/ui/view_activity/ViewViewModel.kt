@@ -25,6 +25,7 @@ class ViewViewModel(private val repository: ViewRepository) : ViewModel() {
         }
     }
 
+    // TODO: 5/12/21 method naming. `is` implies that this method will return a boolean
     fun isInChosenPhoto(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             when (repository.isInChosenPhotoDB(id)) {

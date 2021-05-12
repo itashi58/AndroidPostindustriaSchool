@@ -7,6 +7,7 @@ import com.example.androidpostindustriaschool.data.database.model.Photo
 import java.io.IOException
 
 class MainRepository(private val photoDao: PhotoDao, private val historyDao: RequestHistoryDao) {
+    // TODO: 5/12/21 FlickrApi should be also provided from outside. This way you will have ability to mock it in unit tests
     private val flickrApi = RetrofitInstanceFlickr.api
 
     /**
@@ -16,6 +17,8 @@ class MainRepository(private val photoDao: PhotoDao, private val historyDao: Req
      * both cases are handled in MainViewModel
      */
     suspend fun getFlickrAPIService(searchRequest: String): ArrayList<String>? {
+        // TODO: 5/12/21 IOException is not the only exception you can receive. Try to execute search with empty search field (add whitespace). The app will crash
+        //  You should notify your presentation layer about different errors so that presentation will display an appropriate message.
         return try {
             val apiResponse = flickrApi.search(searchRequest)
             val urls = ArrayList<String>()

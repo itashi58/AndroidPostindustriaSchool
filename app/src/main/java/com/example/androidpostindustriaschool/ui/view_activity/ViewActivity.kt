@@ -13,12 +13,15 @@ import com.example.androidpostindustriaschool.data.database.DatabaseSQLite
 import com.example.androidpostindustriaschool.data.repository.ViewRepository
 import com.example.androidpostindustriaschool.util.Constants.Companion.REQUEST_EXTRA
 
+// TODO: 5/12/21 ViewActivity is not a very accurate name for this screen
 class ViewActivity : AppCompatActivity() {
     private lateinit var photoView: ImageView
     private lateinit var urlTextView: TextView
     private lateinit var addToFavorites: ImageButton
 
 
+    // TODO: 5/12/21 onCreate is really messy. Remember - one method should do only one thing
+    //  Split logic into separate methods
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_view)
