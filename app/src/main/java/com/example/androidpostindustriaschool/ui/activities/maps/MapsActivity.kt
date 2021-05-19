@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.*
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -122,27 +123,61 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun locationPermissionGranted() {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-        val criteria = Criteria()
-        criteria.accuracy = Criteria.ACCURACY_FINE
-        val providerName = locationManager.getBestProvider(criteria, true)
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) { locationManager.requestSingleUpdate()
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                5000,
+                10.toFloat(), object : LocationListener {
+                    override fun onLocationChanged(p0: Location) {
+                        Log.d("Last location", "lfdf")
+                        val locationLatLng =
+                            LatLng(p0.latitude, p0.longitude)
+                        mapAddNewMarker(locationLatLng)
+                        mMap.moveCamera(
+                            CameraUpdateFactory.newLatLngZoom(
+                                locationLatLng,
+                                mapZoom
+                            )
+                        )
+                        locationManager.removeUpdates(this)
+                    }
 
-        if (providerName != null) {
-            val lastLocation = locationManager.getLastKnownLocation(providerName)
-            if (lastLocation != null) {
-                val lastLocationLatLng = LatLng(lastLocation.latitude, lastLocation.longitude)
-                mapAddNewMarker(lastLocationLatLng)
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLocationLatLng, mapZoom))
-            } else {
-                mapAddNewMarker(kievLocation)
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kievLocation, mapZoom))
-                val toast = Toast.makeText(
-                    this,
-                    getString(R.string.error_no_last_location),
-                    Toast.LENGTH_LONG
-                )
-                toast.show()
-            }
+
+
+
+                    override fun onProviderEnabled(provider: String) {
+                    }
+
+                    override fun onProviderDisabled(provider: String) {
+                    }
+
+                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+                    }
+
+
+                }
+            )
+
+//            val lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+//            if (lastLocation != null) {
+//                lastLocation.latitude
+//                val lastLocationLatLng = LatLng(lastLocation.latitude, lastLocation.longitude)
+//                mapAddNewMarker(lastLocationLatLng)
+//                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLocationLatLng, mapZoom))
+//            } else {
+//                mapAddNewMarker(kievLocation)
+//                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kievLocation, mapZoom))
+//                val toast = Toast.makeText(
+//                    this,
+//                    getString(R.string.error_no_last_location),
+//                    Toast.LENGTH_LONG
+//                )
+//                toast.show()
+//            }
+
+
         } else {
+            Log.d("Last location", "lfdf")
             mapAddNewMarker(kievLocation)
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kievLocation, mapZoom))
             val toast = Toast.makeText(
@@ -178,4 +213,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         latitude = markerLocation.latitude
         longitude = markerLocation.longitude
     }
+
+
 }
