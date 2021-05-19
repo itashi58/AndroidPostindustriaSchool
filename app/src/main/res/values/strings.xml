@@ -36,7 +36,7 @@
     <string name="search_photos_in_current_location">Search photos in current location</string>
 
     <!--    Maps Activity-->
-    <string name="title_no_last_location">No last location found, location set to Kiev</string>
+    <string name="error_no_last_location">Please give location permission to show your location, location set to Kiev</string>
     <string name="title_turn_on_location">Turn on geolocation, location set to Kiev </string>
     <string name="title_no_location_permission">Location permission not granted, location set to Kiev</string>
 

@@ -14,4 +14,8 @@ class HistoryRepository(private val historyDao: RequestHistoryDao) {
     suspend fun getAllHistory(): Array<RequestHistory> {
         return historyDao.getAllRequests()
     }
+
+    suspend fun insertInHistoryDB(request: String) {
+        historyDao.insert(request)
+    }
 }

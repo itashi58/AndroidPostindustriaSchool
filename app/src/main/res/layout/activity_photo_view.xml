@@ -7,7 +7,7 @@
     android:background="@color/black"
     android:orientation="vertical"
     android:padding="15dp"
-    tools:context=".ui.view_activity.ViewActivity">
+    tools:context=".ui.activities.photoReview.PhotoReviewActivity">
 
     <ImageView
         android:id="@+id/photoView"

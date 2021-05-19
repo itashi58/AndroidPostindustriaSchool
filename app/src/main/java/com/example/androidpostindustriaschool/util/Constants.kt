@@ -11,5 +11,11 @@ class Constants {
         const val GEOLOCATION_SEARCH = "Geolocation search"
         const val PERMISSION_LOCATION_CODE = 1
         const val MAPS_REQUEST_CODE = 100
+        const val VIEW_TYPE_PHOTO = 0
+        const val VIEW_TYPE_REQUEST_CATEGORY = 1
+        const val INCORRECT_LOG_AND_PASS = 0
+        const val INCORRECT_LOG = 1
+        const val INCORRECT_PASS = 2
+        const val LOGIN_SUCCESSFUL = 3
     }
 }
