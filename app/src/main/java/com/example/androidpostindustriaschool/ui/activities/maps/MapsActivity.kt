@@ -123,7 +123,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun locationPermissionGranted() {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) { locationManager.requestSingleUpdate()
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,
                 5000,
