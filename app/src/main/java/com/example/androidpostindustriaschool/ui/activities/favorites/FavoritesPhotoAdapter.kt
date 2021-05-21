@@ -38,18 +38,25 @@ class FavoritesPhotoAdapter :
         return if (viewType == VIEW_TYPE_PHOTO) {
             val itemView =
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.photo_item_favorites, parent, false)
+                    .inflate(R.layout.item_photo_favorites, parent, false)
             PhotoViewHolder(itemView)
         } else {
             val itemView =
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.request_item_favorites, parent, false)
+                    .inflate(R.layout.item_request_favorites, parent, false)
             RequestViewHolder(itemView)
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (this.getItemViewType(position) == VIEW_TYPE_PHOTO) {
+        bindView(holder, getItemViewType(position), position)
+    }
+
+    override fun getItemCount() = recyclerData.size
+
+    private fun bindView(holder: RecyclerView.ViewHolder, viewType: Int, position: Int) {
+
+        if (viewType == VIEW_TYPE_PHOTO) {
             holder as PhotoViewHolder
             val photo = recyclerData[position].favoritePhoto
             Glide.with(holder.photoImageView.context).load(photo.url)
@@ -62,14 +69,11 @@ class FavoritesPhotoAdapter :
             }
 
         }
-        if (this.getItemViewType(position) == VIEW_TYPE_REQUEST_CATEGORY) {
+        if (viewType == VIEW_TYPE_REQUEST_CATEGORY) {
             holder as RequestViewHolder
             holder.request.text = recyclerData[position].request
         }
-
     }
-
-    override fun getItemCount() = recyclerData.size
 
     fun updateList(list: Map<String, List<FavoritePhoto>>) {
         val newData = ArrayList<RecyclerItemData>()
@@ -94,13 +98,13 @@ class FavoritesPhotoAdapter :
     }
 
     class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var linkTextView: TextView = itemView.findViewById(R.id.photoLinkText)
-        var photoImageView: ImageView = itemView.findViewById(R.id.photoImageView)
-        var favoritesDeleteBtn: ImageButton = itemView.findViewById(R.id.favoritesDeleteBtn)
+        var linkTextView: TextView = itemView.findViewById(R.id.tv_photo_link)
+        var photoImageView: ImageView = itemView.findViewById(R.id.iv_photo)
+        var favoritesDeleteBtn: ImageButton = itemView.findViewById(R.id.btn_delete_favorites)
     }
 
     class RequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var request: TextView = itemView.findViewById(R.id.requestLabel)
+        var request: TextView = itemView.findViewById(R.id.tv_request)
     }
 
     class RecyclerItemData(val request: String) {

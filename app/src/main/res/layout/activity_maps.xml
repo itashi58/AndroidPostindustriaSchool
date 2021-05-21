@@ -6,25 +6,25 @@
     android:layout_height="match_parent">
 
     <fragment
-        android:id="@+id/map"
+        android:id="@+id/f_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/searchInLocationBtn"
+        app:layout_constraintBottom_toTopOf="@+id/btn_search_in_location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".ui.activities.maps.MapsActivity" />
 
     <Button
-        android:id="@+id/searchInLocationBtn"
+        android:id="@+id/btn_search_in_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:backgroundTint="@color/teal_200"
-        android:text="@string/search_photos_in_current_location"
+        android:text="@string/action_search_photos_by_location"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/map" />
+        app:layout_constraintTop_toBottomOf="@+id/f_map" />
 </androidx.constraintlayout.widget.ConstraintLayout>

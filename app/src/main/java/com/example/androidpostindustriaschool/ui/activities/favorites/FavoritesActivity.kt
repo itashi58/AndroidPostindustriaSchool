@@ -36,7 +36,7 @@ class FavoritesActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        favoriteRecyclerView = findViewById(R.id.recyclerViewHistory)
+        favoriteRecyclerView = findViewById(R.id.rv_history)
         adapter = FavoritesPhotoAdapter()
         favoriteRecyclerView.adapter = adapter
         favoriteRecyclerView.layoutManager =
@@ -59,7 +59,7 @@ class FavoritesActivity : AppCompatActivity() {
             if (isNoFavoritePhotos) {
                 val toast = Toast.makeText(
                     this,
-                    getString(R.string.title_no_favorite_photos),
+                    getString(R.string.msg_no_favorite_photos),
                     Toast.LENGTH_LONG
                 )
                 toast.show()

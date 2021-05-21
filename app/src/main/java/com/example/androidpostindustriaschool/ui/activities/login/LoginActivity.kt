@@ -46,9 +46,9 @@ class LoginActivity : AppCompatActivity() {
                     finish()
                 }
                 INCORRECT_LOG_AND_PASS -> incorrectData.text =
-                    getString(R.string.title_invalid_login_and_password)
-                INCORRECT_LOG -> incorrectData.text = getString(R.string.title_invalid_login)
-                INCORRECT_PASS -> incorrectData.text = getString(R.string.title_invalid_password)
+                    getString(R.string.msg_invalid_login_and_password)
+                INCORRECT_LOG -> incorrectData.text = getString(R.string.msg_invalid_login)
+                INCORRECT_PASS -> incorrectData.text = getString(R.string.msg_invalid_password)
             }
         })
     }
@@ -60,10 +60,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        login = findViewById(R.id.username)
-        password = findViewById(R.id.password)
-        loginBtn = findViewById(R.id.login)
-        incorrectData = findViewById(R.id.incorrect_data)
+        login = findViewById(R.id.et_username)
+        password = findViewById(R.id.et_password)
+        loginBtn = findViewById(R.id.btn_login)
+        incorrectData = findViewById(R.id.tv_incorrect_data)
     }
 
 

@@ -53,12 +53,12 @@ class PhotoReviewActivity : AppCompatActivity() {
             if (isPhotoFavorite) {
                 addToFavorites.background = ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.circle_background_yellow,
+                    R.drawable.button_background_yellow,
                     null
                 )
             } else {
                 addToFavorites.background =
-                    ResourcesCompat.getDrawable(resources, R.drawable.circle_background_white, null)
+                    ResourcesCompat.getDrawable(resources, R.drawable.button_background_white, null)
             }
         })
     }
@@ -67,13 +67,13 @@ class PhotoReviewActivity : AppCompatActivity() {
         addToFavorites.setOnClickListener {
             if (isPhotoFavorite) {
                 addToFavorites.background =
-                    ResourcesCompat.getDrawable(resources, R.drawable.circle_background_white, null)
+                    ResourcesCompat.getDrawable(resources, R.drawable.button_background_white, null)
                 viewModel.deleteFromChosenPhoto(url, request)
                 isPhotoFavorite = false
             } else {
                 addToFavorites.background = ResourcesCompat.getDrawable(
                     resources,
-                    R.drawable.circle_background_yellow,
+                    R.drawable.button_background_yellow,
                     null
                 )
                 viewModel.insertInChosenPhoto(url, request)
@@ -85,6 +85,6 @@ class PhotoReviewActivity : AppCompatActivity() {
     private fun initViews(){
         photoView = findViewById(R.id.photoView)
         urlTextView = findViewById(R.id.urlTextView)
-        addToFavorites = findViewById(R.id.favoritesDeleteBtn)
+        addToFavorites = findViewById(R.id.btn_delete_favorites)
     }
 }

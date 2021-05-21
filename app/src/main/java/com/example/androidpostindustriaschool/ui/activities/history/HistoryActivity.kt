@@ -23,7 +23,7 @@ class HistoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
 
-        clearHistoryBtn = findViewById(R.id.clearHistoryBtn)
+        clearHistoryBtn = findViewById(R.id.btn_clear_history)
 
         val repository = HistoryRepository(DatabaseSQLite.getDatabase(this).requestHistoryDao())
         val viewModelFactory = HistoryViewModelFactory(repository)
@@ -39,7 +39,7 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        requestRecyclerView = findViewById(R.id.recyclerViewHistory)
+        requestRecyclerView = findViewById(R.id.rv_history)
         adapter = HistoryRequestAdapter()
         requestRecyclerView.adapter = adapter
         requestRecyclerView.layoutManager =
@@ -51,7 +51,7 @@ class HistoryActivity : AppCompatActivity() {
             if (history.isEmpty()) {
                 val toast = Toast.makeText(
                     this,
-                    getString(R.string.title_no_history),
+                    getString(R.string.msg_no_history),
                     Toast.LENGTH_LONG
                 )
                 toast.show()

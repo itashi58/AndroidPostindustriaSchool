@@ -20,7 +20,7 @@ class MainViewModel(
 
     fun searchInFlickr(search: String) {
         if (search.isEmpty() || search.isBlank()) {
-            flickrSearchError.postValue(R.string.title_search_empty)
+            flickrSearchError.postValue(R.string.msg_search_empty)
         } else {
             viewModelScope.launch(Dispatchers.IO) {
                 progressBarVisibility.postValue(true)
@@ -48,10 +48,10 @@ class MainViewModel(
     private suspend fun handleFlickrResponse(response: ArrayList<String>?, request: String) {
         when {
             response == null -> { //connection or internal problems
-                flickrSearchError.postValue(R.string.title_no_internet)
+                flickrSearchError.postValue(R.string.error_no_internet)
             }
             response.isEmpty() -> { // no data for this request on api
-                flickrSearchError.postValue(R.string.title_no_search_result)
+                flickrSearchError.postValue(R.string.msg_no_search_result)
             }
             else -> { //correct response
                 lastRequest = request

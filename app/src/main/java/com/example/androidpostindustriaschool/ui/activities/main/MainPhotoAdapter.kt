@@ -13,7 +13,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidpostindustriaschool.R
-import com.example.androidpostindustriaschool.data.database.model.RequestHistory
 import com.example.androidpostindustriaschool.ui.activities.photoReview.PhotoReviewActivity
 import com.example.androidpostindustriaschool.util.Constants.Companion.REQUEST_EXTRA
 import org.bluecabin.textoo.Textoo
@@ -31,7 +30,7 @@ class MainPhotoAdapter : RecyclerView.Adapter<MainPhotoAdapter.PhotoViewHolder>(
     ): PhotoViewHolder {
         val itemView =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.photo_item, parent, false)
+                .inflate(R.layout.item_photo, parent, false)
         return PhotoViewHolder(itemView)
     }
 
@@ -80,8 +79,8 @@ class MainPhotoAdapter : RecyclerView.Adapter<MainPhotoAdapter.PhotoViewHolder>(
     }
 
     class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var linkTextView: TextView = itemView.findViewById(R.id.photoLinkText)
-        var photoImageView: ImageView = itemView.findViewById(R.id.photoImageView)
+        var linkTextView: TextView = itemView.findViewById(R.id.tv_photo_link)
+        var photoImageView: ImageView = itemView.findViewById(R.id.iv_photo)
 
     }
 

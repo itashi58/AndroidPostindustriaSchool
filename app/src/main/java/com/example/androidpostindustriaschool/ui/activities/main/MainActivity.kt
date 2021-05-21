@@ -96,13 +96,13 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initViews() {
-        searchButton = findViewById(R.id.searchBtn)
-        searchInputField = findViewById(R.id.searchEditText)
-        photoRecyclerView = findViewById(R.id.recyclerview)
-        progressBar = findViewById(R.id.progressBarMain)
-        favoritesFab = findViewById(R.id.FavoritesFAB)
-        historyButton = findViewById(R.id.historyBtn)
-        mapsButton = findViewById(R.id.mapFAB)
+        searchButton = findViewById(R.id.btn_search)
+        searchInputField = findViewById(R.id.et_search)
+        photoRecyclerView = findViewById(R.id.rv_photo)
+        progressBar = findViewById(R.id.pb_main)
+        favoritesFab = findViewById(R.id.fab_favorites)
+        historyButton = findViewById(R.id.btn_history)
+        mapsButton = findViewById(R.id.fab_map)
     }
 
     private fun setListeners() {

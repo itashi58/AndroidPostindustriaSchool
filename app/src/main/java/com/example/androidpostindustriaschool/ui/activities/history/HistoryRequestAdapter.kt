@@ -23,7 +23,7 @@ class HistoryRequestAdapter() :
     ): RequestViewHolder {
         val itemView =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.request_item_history, parent, false)
+                .inflate(R.layout.item_request_history, parent, false)
         return RequestViewHolder(itemView)
     }
 
@@ -51,7 +51,7 @@ class HistoryRequestAdapter() :
 
 
     class RequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var request: TextView = itemView.findViewById(R.id.requestLabel)
+        var request: TextView = itemView.findViewById(R.id.tv_request)
     }
 
 }

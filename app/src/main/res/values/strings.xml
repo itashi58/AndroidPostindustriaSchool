@@ -8,37 +8,38 @@
     <string name="title_app_created_by">App created by: Malyi Danylo</string>
 
     <!--    Main Activity -->
-    <string name="title_no_internet">Internet connection error. Please check your connection and try again</string>
-    <string name="title_no_search_result">Nothing to show on your request(</string>
-    <string name="title_search_empty">Search field is empty</string>
-    <string name="title_btnSearch">Search</string>
-    <string name="hint_for_search_field">Search in Flickr</string>
-    <string name="title_internal_error">Internal error, connect with developers team</string>
+    <string name="error_no_internet">Internet connection error. Please check your connection and try again</string>
+    <string name="msg_no_search_result">Nothing to show on your request(</string>
+    <string name="msg_search_empty">Search field is empty</string>
+    <string name="action_search">Search</string>
+    <string name="hint_search_field">Search in Flickr</string>
+    <string name="error_internal_error">Internal error, connect with developers team</string>
 
     <!--    Login Activity -->
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_login_action_bar">LoginActivity</string>
     <string name="hint_password">Password</string>
     <string name="hint_login">Login</string>
-    <string name="title_sign_inBtn">Sign in</string>
-    <string name="title_invalid_password">Password must be at least 6 characters</string>
-    <string name="title_invalid_login">"Login field is empty"</string>
-    <string name="title_invalid_login_and_password">"Login field is empty \nPassword must be at least 6 characters"</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="msg_invalid_password">Password must be at least 6 characters</string>
+    <string name="msg_invalid_login">"Login field is empty"</string>
+    <string name="msg_invalid_login_and_password">"Login field is empty \nPassword must be at least 6 characters"</string>
 
     <!--    Favorites Activity-->
-    <string name="label_favorites_actionBar">Favorites</string>
-    <string name="title_no_favorite_photos">You have no favorite photos</string>
+    <string name="title_favorites_action_bar">Favorites</string>
+    <string name="msg_no_favorite_photos">You have no favorite photos</string>
 
     <!--    History Activity-->
-    <string name="label_history_actionBar">History</string>
-    <string name="title_no_history">You have no history, yet</string>
-    <string name="title_clear_history">Clear History</string>
-    <string name="title_activity_maps">Map</string>
-    <string name="search_photos_in_current_location">Search photos in current location</string>
+    <string name="title_history_action_bar">History</string>
+    <string name="msg_no_history">You have no history, yet</string>
+    <string name="action_clear_history">Clear History</string>
 
     <!--    Maps Activity-->
-    <string name="error_no_last_location">Please give location permission to show your location, location set to Kiev</string>
-    <string name="title_turn_on_location">Turn on geolocation, location set to Kiev </string>
-    <string name="title_no_location_permission">Location permission not granted, location set to Kiev</string>
+    <string name="title_maps_action_bar">Map</string>
+    <string name="action_search_photos_by_location">Search photos in current location</string>
+    <string name="error_no_location_permission">Please give location permission to show your location, location set to Kiev</string>
+    <string name="error_turn_on_location">Turn on geolocation, location set to Kiev </string>
+    <string name="msg_wait_for_location">Getting your location. Please wait</string>
+    <string name="title_current_location">Current location</string>
 
 
 </resources>

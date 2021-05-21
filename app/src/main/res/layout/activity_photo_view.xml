@@ -35,11 +35,11 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/favoritesDeleteBtn"
+                android:id="@+id/btn_delete_favorites"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/circle_background_white"
+                android:background="@drawable/button_background_white"
                 android:src="@drawable/ic_baseline_star_border"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
                 android:textSize="25sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/favoritesDeleteBtn"
+                app:layout_constraintStart_toEndOf="@+id/btn_delete_favorites"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,27 +7,27 @@
     tools:context=".ui.activities.history.HistoryActivity">
 
     <Button
-        android:id="@+id/clearHistoryBtn"
+        android:id="@+id/btn_clear_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/red"
-        android:text="@string/title_clear_history"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewHistory"
+        android:text="@string/action_clear_history"
+        app:layout_constraintBottom_toTopOf="@+id/rv_history"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewHistory"
+        android:id="@+id/rv_history"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clearHistoryBtn"
+        app:layout_constraintTop_toBottomOf="@+id/btn_clear_history"
         app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/request_item_history" />
+        tools:listitem="@layout/item_request_history" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

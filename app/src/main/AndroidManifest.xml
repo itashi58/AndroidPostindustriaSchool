@@ -26,19 +26,19 @@
 
         <activity
             android:name="com.example.androidpostindustriaschool.ui.activities.maps.MapsActivity"
-            android:label="@string/title_activity_maps"
+            android:label="@string/title_maps_action_bar"
             android:theme="@style/Theme.AndroidPostindustriaSchoolActionBar" />
         <activity
             android:name="com.example.androidpostindustriaschool.ui.activities.history.HistoryActivity"
-            android:label="@string/label_history_actionBar"
+            android:label="@string/title_history_action_bar"
             android:theme="@style/Theme.AndroidPostindustriaSchoolActionBar" />
         <activity
             android:name="com.example.androidpostindustriaschool.ui.activities.favorites.FavoritesActivity"
-            android:label="@string/label_favorites_actionBar"
+            android:label="@string/title_favorites_action_bar"
             android:theme="@style/Theme.AndroidPostindustriaSchoolActionBar" />
         <activity
             android:name="com.example.androidpostindustriaschool.ui.activities.login.LoginActivity"
-            android:label="@string/title_activity_login"
+            android:label="@string/title_login_action_bar"
             android:theme="@style/Theme.AndroidPostindustriaSchool" />
         <activity
             android:name="com.example.androidpostindustriaschool.ui.activities.photoReview.PhotoReviewActivity"
