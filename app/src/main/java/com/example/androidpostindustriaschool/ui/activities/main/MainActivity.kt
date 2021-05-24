@@ -17,6 +17,7 @@ import com.example.androidpostindustriaschool.data.database.DatabaseSQLite
 import com.example.androidpostindustriaschool.data.repository.HistoryRepository
 import com.example.androidpostindustriaschool.data.repository.PhotoRepository
 import com.example.androidpostindustriaschool.ui.activities.favorites.FavoritesActivity
+import com.example.androidpostindustriaschool.ui.activities.gallery.GalleryActivity
 import com.example.androidpostindustriaschool.ui.activities.history.HistoryActivity
 import com.example.androidpostindustriaschool.ui.activities.maps.MapsActivity
 import com.example.androidpostindustriaschool.util.Constants
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var favoritesFab: FloatingActionButton
     private lateinit var historyButton: ImageButton
     private lateinit var mapsButton: ImageButton
+    private lateinit var galleryButton: ImageButton
     private lateinit var viewModel: MainViewModel
     private lateinit var adapter: MainPhotoAdapter
 
@@ -103,6 +105,7 @@ class MainActivity : AppCompatActivity() {
         favoritesFab = findViewById(R.id.fab_favorites)
         historyButton = findViewById(R.id.btn_history)
         mapsButton = findViewById(R.id.fab_map)
+        galleryButton = findViewById(R.id.fab_gallery)
     }
 
     private fun setListeners() {
@@ -121,6 +124,10 @@ class MainActivity : AppCompatActivity() {
 
         mapsButton.setOnClickListener {
             startActivityForResult(Intent(this, MapsActivity::class.java), MAPS_REQUEST_CODE)
+        }
+
+        galleryButton.setOnClickListener {
+            startActivity(Intent(this, GalleryActivity::class.java))
         }
     }
 

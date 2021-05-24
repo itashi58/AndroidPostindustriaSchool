@@ -41,5 +41,10 @@
     <string name="msg_wait_for_location">Getting your location. Please wait</string>
     <string name="title_current_location">Current location</string>
 
+    <!--    Gallery Activity-->
+    <string name="title_gallery_action_bar">Gallery</string>
+    <string name="error_no_camera_app">Error, you don\'t have camera application</string>
+    <string name="error_creating_photo">Error occurred, while creating photo</string>
+
 
 </resources>

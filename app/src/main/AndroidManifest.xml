@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.androidpostindustriaschool">
+    package="com.example.androidpostindustriaschool"
+    android:installLocation="preferExternal">
 
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the "MyLocation" functionality.
-    -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -19,45 +19,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
 
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key"
-            />
+            android:value="@string/google_maps_key" />
 
+        <activity android:name=".ui.activities.gallery.GalleryActivity"
+            android:label="@string/title_gallery_action_bar"
+            android:theme="@style/Theme.AndroidPostindustriaSchoolActionBar"/>
         <activity
-            android:name="com.example.androidpostindustriaschool.ui.activities.maps.MapsActivity"
+            android:name=".ui.activities.maps.MapsActivity"
             android:label="@string/title_maps_action_bar"
             android:theme="@style/Theme.AndroidPostindustriaSchoolActionBar" />
         <activity
-            android:name="com.example.androidpostindustriaschool.ui.activities.history.HistoryActivity"
+            android:name=".ui.activities.history.HistoryActivity"
             android:label="@string/title_history_action_bar"
             android:theme="@style/Theme.AndroidPostindustriaSchoolActionBar" />
         <activity
-            android:name="com.example.androidpostindustriaschool.ui.activities.favorites.FavoritesActivity"
+            android:name=".ui.activities.favorites.FavoritesActivity"
             android:label="@string/title_favorites_action_bar"
             android:theme="@style/Theme.AndroidPostindustriaSchoolActionBar" />
         <activity
-            android:name="com.example.androidpostindustriaschool.ui.activities.login.LoginActivity"
+            android:name=".ui.activities.login.LoginActivity"
             android:label="@string/title_login_action_bar"
             android:theme="@style/Theme.AndroidPostindustriaSchool" />
         <activity
-            android:name="com.example.androidpostindustriaschool.ui.activities.photoReview.PhotoReviewActivity"
+            android:name=".ui.activities.photoReview.PhotoReviewActivity"
             android:theme="@style/Theme.AndroidPostindustriaSchool"
-            tools:ignore="AppLinkUrlError">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.VIEW" /> -->
-
-
-            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-
-
-            <!-- <data android:scheme="https" /> -->
-            <!-- <data android:scheme="http" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+            tools:ignore="AppLinkUrlError" />
         <activity
-            android:name="com.example.androidpostindustriaschool.ui.activities.splash.SplashScreenActivity"
+            android:name=".ui.activities.splash.SplashScreenActivity"
             android:theme="@style/Theme.AndroidPostindustriaSchool">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -66,7 +57,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.androidpostindustriaschool.ui.activities.main.MainActivity"
+            android:name=".ui.activities.main.MainActivity"
             android:theme="@style/Theme.AndroidPostindustriaSchool" />
     </application>
 

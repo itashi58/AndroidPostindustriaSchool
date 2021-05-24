@@ -17,5 +17,6 @@ class Constants {
         const val INCORRECT_LOG = 1
         const val INCORRECT_PASS = 2
         const val LOGIN_SUCCESSFUL = 3
+        const val REQUEST_IMAGE_CAPTURE = 1
     }
 }
