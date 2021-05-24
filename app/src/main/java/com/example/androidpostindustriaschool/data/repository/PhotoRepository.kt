@@ -27,7 +27,7 @@ class PhotoRepository(private val photoDao: PhotoDao) {
             null
         }
         catch (e: Throwable){
-            Log.d("Unexpected exception", "Unexpected exeption in FlickrAPIResponse")
+            Log.d("Unexpected exception", "Unexpected exception in FlickrAPIResponse")
             null
         }
     }

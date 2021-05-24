@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
@@ -35,6 +36,7 @@ class GalleryActivity : AppCompatActivity() {
         galleryDir = this.getDir("Gallery", Context.MODE_PRIVATE)
 
         createPhotoBtn.setOnClickListener { dispatchTakePictureIntent() }
+        Log.d("file was created", "OK")
     }
 
 
@@ -58,7 +60,9 @@ class GalleryActivity : AppCompatActivity() {
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+                    Log.d("file was created", "OK")
                 }
+                Log.d("file was created", "OK")
             }
         }
     }
@@ -87,18 +91,14 @@ class GalleryActivity : AppCompatActivity() {
         alertDialogBuilder.setView(et)
 
         // set dialog message
-
-        // set dialog message
         alertDialogBuilder.setCancelable(true).setPositiveButton("OK"
         ) { dialog, id ->
 
         }
 
-        // create alert dialog
 
         // create alert dialog
         val alertDialog: AlertDialog = alertDialogBuilder.create()
-        // show it
         // show it
         alertDialog.show()
     }

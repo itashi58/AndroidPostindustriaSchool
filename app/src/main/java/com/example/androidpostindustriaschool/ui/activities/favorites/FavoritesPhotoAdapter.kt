@@ -101,10 +101,18 @@ class FavoritesPhotoAdapter :
         var linkTextView: TextView = itemView.findViewById(R.id.tv_photo_link)
         var photoImageView: ImageView = itemView.findViewById(R.id.iv_photo)
         var favoritesDeleteBtn: ImageButton = itemView.findViewById(R.id.btn_delete_favorites)
+
+        fun bindView(data:RecyclerItemData){
+
+        }
     }
 
     class RequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var request: TextView = itemView.findViewById(R.id.tv_request)
+
+        fun bindView(data:RecyclerItemData){
+
+        }
     }
 
     class RecyclerItemData(val request: String) {
