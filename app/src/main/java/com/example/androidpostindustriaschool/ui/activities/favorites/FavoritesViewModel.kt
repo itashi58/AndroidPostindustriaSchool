@@ -10,7 +10,8 @@ import kotlinx.coroutines.launch
 
 
 class FavoritesViewModel(private val repository: FavoritePhotosRepository) : ViewModel() {
-    val favoritePhotos: MutableLiveData<Map<String, List<FavoritePhoto>>> = MutableLiveData()
+    val favoritePhotos: MutableLiveData<ArrayList<FavoritesPhotoAdapter.RecyclerItemData>> =
+        MutableLiveData()
     val noFavoritePhotos: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getFavoritesPhoto() {
@@ -18,7 +19,7 @@ class FavoritesViewModel(private val repository: FavoritePhotosRepository) : Vie
             val favoriteGroupedByRequest = repository.getFavoritePhotos().groupBy { chosenPhoto ->
                 chosenPhoto.request
             }
-            favoritePhotos.postValue(favoriteGroupedByRequest)
+            favoritePhotos.postValue(createDataForAdapter(favoriteGroupedByRequest))
         }
     }
 
@@ -31,8 +32,20 @@ class FavoritesViewModel(private val repository: FavoritePhotosRepository) : Vie
             if (favoriteGroupedByRequest.isEmpty()) {
                 noFavoritePhotos.postValue(true)
             } else {
-                favoritePhotos.postValue(favoriteGroupedByRequest)
+                favoritePhotos.postValue(createDataForAdapter(favoriteGroupedByRequest))
             }
         }
     }
+
+    private fun createDataForAdapter(favoriteGroupedByRequest: Map<String, List<FavoritePhoto>>): ArrayList<FavoritesPhotoAdapter.RecyclerItemData> {
+        val adapterData = ArrayList<FavoritesPhotoAdapter.RecyclerItemData>()
+        favoriteGroupedByRequest.forEach { entry ->
+            adapterData.add(FavoritesPhotoAdapter.RecyclerItemData(entry.key))
+            entry.value.forEach { photo ->
+                adapterData.add(FavoritesPhotoAdapter.RecyclerItemData(photo))
+            }
+        }
+        return adapterData
+    }
+
 }
