@@ -1,3 +1,4 @@
+// TODO: 24.05.2021 don't use uppercase package names
 package com.example.androidpostindustriaschool.ui.activities.photoReview
 
 import androidx.appcompat.app.AppCompatActivity

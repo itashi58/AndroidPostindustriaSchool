@@ -9,6 +9,7 @@ import com.example.androidpostindustriaschool.data.repository.FavoritePhotosRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+// TODO: 24.05.2021 `ViewModel`, not just `Model`
 class PhotoReviewModel(private val repository: FavoritePhotosRepository) : ViewModel() {
 
     val inFavorites: MutableLiveData<Boolean> = MutableLiveData()
@@ -28,6 +29,8 @@ class PhotoReviewModel(private val repository: FavoritePhotosRepository) : ViewM
     fun idInChosenPhoto(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             when (repository.isInChosenPhotoDB(id)) {
+                // TODO: 24.05.2021 avoid hardcode
+                //  can be replaced with single line inFavorites.postValue(id == 1)
                 1 -> inFavorites.postValue(true)
                 0 -> inFavorites.postValue(false)
                 else -> {

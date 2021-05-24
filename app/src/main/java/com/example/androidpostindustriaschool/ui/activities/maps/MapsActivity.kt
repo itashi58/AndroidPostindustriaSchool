@@ -29,14 +29,21 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
+    // TODO: 24.05.2021 Avoid `m` prefix
     private lateinit var mMap: GoogleMap
+
+    // TODO: 24.05.2021 Why this is defined and not used? Read about viewBinding.
     private lateinit var binding: ActivityMapsBinding
+
+    // TODO: 24.05.2021 you can access this view from `binding` instance
     private lateinit var searchBtn: Button
+
+    // TODO: 24.05.2021 Work with locaitonManager should be encapsulated in some LocationProvider
     private lateinit var locationManager: LocationManager
     private val locManMinTimeMs: Long = 1000
     private val locManMinDistance: Float = 10f
-    private val kievLocation = LatLng(50.450001, 30.523333)
-    private val mapZoom = 10f
+    private val kievLocation = LatLng(50.450001, 30.523333) // TODO: 24.05.2021 should be constant
+    private val mapZoom = 10f // TODO: 24.05.2021 should be constant
     private var latitude = 50.450001
     private var longitude = 30.523333
 

@@ -33,6 +33,7 @@ class HistoryRequestAdapter() :
 
     override fun getItemCount() = recyclerData.size
 
+    // TODO: 24.05.2021 data manipulation in adapter
     fun updateList(list: Array<RequestHistory>) {
         val newData = ArrayList<String>()
         list.forEach { entry ->

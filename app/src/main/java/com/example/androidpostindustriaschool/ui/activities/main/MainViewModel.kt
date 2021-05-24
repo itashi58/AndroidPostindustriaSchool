@@ -13,6 +13,8 @@ class MainViewModel(
     private val historyRepository: HistoryRepository
 ) : ViewModel() {
 
+    // TODO: 24.05.2021 It's good practice to provide immutable live data for your ui.
+    //  This way you won't be able to accidentally post livedata directly from your ui
     val flickrSearchResponse: MutableLiveData<List<String>> = MutableLiveData()
     val flickrSearchError: MutableLiveData<Int> = MutableLiveData()
     val progressBarVisibility: MutableLiveData<Boolean> = MutableLiveData()

@@ -40,10 +40,13 @@ class MainPhotoAdapter : RecyclerView.Adapter<MainPhotoAdapter.PhotoViewHolder>(
         holder.linkTextView.text = urls[position]
 
         //make links with intents leading to PhotoReviewActivity in every CardView
+        // TODO: 24.05.2021 view binding should be encapsulated
         holder.linkTextView = Textoo
             .config(holder.linkTextView)
             .linkifyAll()
             .addLinksHandler { _, url ->
+                // TODO: 24.05.2021 click handling should be performed outside of adapter. This is because you may want to have
+                //  different click handling on different screens for the same adapter
                 val intent = Intent(holder.linkTextView.context, PhotoReviewActivity::class.java).apply {
                     data = Uri.parse(url)
                     this.putExtra(REQUEST_EXTRA, request)
@@ -53,6 +56,8 @@ class MainPhotoAdapter : RecyclerView.Adapter<MainPhotoAdapter.PhotoViewHolder>(
             }
             .apply()
 
+        // TODO: 24.05.2021 click handling should be performed outside of adapter. This is because you may want to have
+        //  different click handling on different screens for the same adapter
         holder.photoImageView.setOnClickListener {
             val intent = Intent(holder.linkTextView.context, PhotoReviewActivity::class.java).apply {
                 data = Uri.parse(holder.linkTextView.text.toString())

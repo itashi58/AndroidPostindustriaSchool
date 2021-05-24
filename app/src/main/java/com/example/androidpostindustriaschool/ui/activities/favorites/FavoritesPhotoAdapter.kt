@@ -52,6 +52,7 @@ class FavoritesPhotoAdapter :
         if (holder.itemViewType == VIEW_TYPE_PHOTO) {
             holder as PhotoViewHolder
             holder.bindView(recyclerData[position])
+            // TODO: 24.05.2021 clicklistener setting is also view binding. Should be in bindView
             holder.favoritesDeleteBtn.setOnClickListener {
                 deleteItem(position)
             }
