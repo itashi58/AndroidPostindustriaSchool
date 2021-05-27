@@ -8,16 +8,18 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.*
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.databinding.ActivityMapsBinding
-import com.example.androidpostindustriaschool.ui.activities.main.MainActivity
+import com.example.androidpostindustriaschool.ui.activities.main.view.MainActivity
+import com.example.androidpostindustriaschool.util.Constants.Companion.KIEV_LATITUDE
+import com.example.androidpostindustriaschool.util.Constants.Companion.KIEV_LONGITUDE
 import com.example.androidpostindustriaschool.util.Constants.Companion.LATITUDE_EXTRA
 import com.example.androidpostindustriaschool.util.Constants.Companion.LONGITUDE_EXTRA
 import com.example.androidpostindustriaschool.util.Constants.Companion.PERMISSION_LOCATION_CODE
+import com.example.androidpostindustriaschool.util.Constants.Companion.MAP_ZOOM
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -29,14 +31,9 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var mMap: GoogleMap
+    private lateinit var googleMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
-    private lateinit var searchBtn: Button
-    private lateinit var locationManager: LocationManager
-    private val locManMinTimeMs: Long = 1000
-    private val locManMinDistance: Float = 10f
-    private val kievLocation = LatLng(50.450001, 30.523333)
-    private val mapZoom = 10f
+    private lateinit var mapsLocationProvider:MapsLocationProvider
     private var latitude = 50.450001
     private var longitude = 30.523333
 
@@ -46,25 +43,37 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        searchBtn = findViewById(R.id.btn_search_in_location)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.f_map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        mapsLocationProvider =  MapsLocationProvider(getSystemService(Context.LOCATION_SERVICE) as LocationManager)
         setListeners()
+        setObservers()
     }
 
     private fun setListeners() {
-        searchBtn.setOnClickListener {
+        binding.btnSearchInLocation.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra(LATITUDE_EXTRA, latitude)
             intent.putExtra(LONGITUDE_EXTRA, longitude)
             setResult(RESULT_OK, intent)
             finish()
         }
+    }
 
+    private fun setObservers() {
+        mapsLocationProvider.currentLocation.observe(this) { currentLocation ->
+            mapAddNewMarker(currentLocation)
+            googleMap.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    currentLocation,
+                    MAP_ZOOM
+                )
+            )
+        }
     }
 
     /**
@@ -76,8 +85,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-        mMap.uiSettings.isZoomControlsEnabled = true
+        this.googleMap = googleMap
+        this.googleMap.uiSettings.isZoomControlsEnabled = true
 
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -92,7 +101,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             )
         }
 
-        mMap.setOnMapClickListener { location ->
+        this.googleMap.setOnMapClickListener { location ->
             mapAddNewMarker(location)
         }
     }
@@ -120,50 +129,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     @SuppressLint("MissingPermission")
     private fun locationPermissionGranted() {
-        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-        val lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        val lastLocation = mapsLocationProvider.getLastLocation()
         when {
             lastLocation != null -> {
                 lastLocation.latitude
                 val lastLocationLatLng = LatLng(lastLocation.latitude, lastLocation.longitude)
                 mapAddNewMarker(lastLocationLatLng)
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLocationLatLng, mapZoom))
+                googleMap.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        lastLocationLatLng,
+                        MAP_ZOOM
+                    )
+                )
 
             }
 
-            locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) -> {
+            mapsLocationProvider.isProviderGPSEnabled() -> {
                 createToast(R.string.msg_wait_for_location)
-                locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    locManMinTimeMs,
-                    locManMinDistance, object : LocationListener {
-
-                        override fun onLocationChanged(p0: Location) {
-                            val locationLatLng =
-                                LatLng(p0.latitude, p0.longitude)
-                            mapAddNewMarker(locationLatLng)
-                            mMap.moveCamera(
-                                CameraUpdateFactory.newLatLngZoom(
-                                    locationLatLng,
-                                    mapZoom
-                                )
-                            )
-                            locationManager.removeUpdates(this)
-                        }
-
-                        override fun onProviderEnabled(provider: String) {}
-
-                        override fun onProviderDisabled(provider: String) {}
-
-                        override fun onStatusChanged(
-                            provider: String?,
-                            status: Int,
-                            extras: Bundle?
-                        ) {
-                        }
-                    }
-                )
+                mapsLocationProvider.startLocationSearch()
             }
             else -> {
                 locationPermissionProblem(R.string.error_turn_on_location)
@@ -176,14 +160,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * some problem occurred, messageResId will be shown in Toast to user and marker set to Kiev
      */
     private fun locationPermissionProblem(messageResId: Int) {
+        val kievLocation = LatLng(KIEV_LATITUDE, KIEV_LONGITUDE)
         mapAddNewMarker(kievLocation)
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kievLocation, mapZoom))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kievLocation, MAP_ZOOM))
         createToast(messageResId)
     }
 
     private fun mapAddNewMarker(markerLocation: LatLng) {
-        mMap.clear()
-        mMap.addMarker(
+        googleMap.clear()
+        googleMap.addMarker(
             MarkerOptions().position(markerLocation)
                 .title(getString(R.string.title_current_location))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))

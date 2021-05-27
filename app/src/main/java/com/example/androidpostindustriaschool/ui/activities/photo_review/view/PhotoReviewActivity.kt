@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.ui.activities.photoReview
+package com.example.androidpostindustriaschool.ui.activities.photo_review.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,13 +11,15 @@ import com.bumptech.glide.Glide
 import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.data.database.DatabaseSQLite
 import com.example.androidpostindustriaschool.data.repository.FavoritePhotosRepository
+import com.example.androidpostindustriaschool.ui.activities.photo_review.view_model.PhotoReviewModelFactory
+import com.example.androidpostindustriaschool.ui.activities.photo_review.view_model.PhotoReviewViewModel
 import com.example.androidpostindustriaschool.util.Constants.Companion.REQUEST_EXTRA
 
 class PhotoReviewActivity : AppCompatActivity() {
     private lateinit var photoView: ImageView
     private lateinit var urlTextView: TextView
     private lateinit var addToFavorites: ImageButton
-    private lateinit var viewModel: PhotoReviewModel
+    private lateinit var viewModel: PhotoReviewViewModel
     var isPhotoFavorite = false
 
 
@@ -30,7 +32,7 @@ class PhotoReviewActivity : AppCompatActivity() {
 
         val repository = FavoritePhotosRepository(DatabaseSQLite.getDatabase(this).chosenPhotoDao())
         val viewModelFactory = PhotoReviewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(PhotoReviewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(PhotoReviewViewModel::class.java)
 
 
         val url = intent.data.toString()

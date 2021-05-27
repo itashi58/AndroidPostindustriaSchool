@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.ui.activities.favorites
+package com.example.androidpostindustriaschool.ui.activities.favorites.view
 
 import android.text.util.Linkify
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -16,10 +17,13 @@ import com.example.androidpostindustriaschool.util.Constants.Companion.VIEW_TYPE
 import com.example.androidpostindustriaschool.util.Constants.Companion.VIEW_TYPE_REQUEST_CATEGORY
 
 
-class FavoritesPhotoAdapter :
+class FavoritesPhotoAdapter(private val listener: (Int) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val photoDelete: MutableLiveData<String> = MutableLiveData()
+    private val _photoDelete: MutableLiveData<String> = MutableLiveData()
+    val photoDelete: LiveData<String>
+        get() = _photoDelete
+
     private var recyclerData = ArrayList<RecyclerItemData>()
 
 
@@ -49,42 +53,23 @@ class FavoritesPhotoAdapter :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        bindView(holder, getItemViewType(position), position)
+        if (holder.itemViewType == VIEW_TYPE_PHOTO) {
+            holder as PhotoViewHolder
+            holder.bindView(recyclerData[position])
+            holder.favoritesDeleteBtn.setOnClickListener {
+                listener(position)
+            }
+        } else if (holder.itemViewType == VIEW_TYPE_REQUEST_CATEGORY) {
+            holder as RequestViewHolder
+            holder.bindView(recyclerData[position])
+        }
     }
 
     override fun getItemCount() = recyclerData.size
 
-    private fun bindView(holder: RecyclerView.ViewHolder, viewType: Int, position: Int) {
-
-        if (viewType == VIEW_TYPE_PHOTO) {
-            holder as PhotoViewHolder
-            val photo = recyclerData[position].favoritePhoto
-            Glide.with(holder.photoImageView.context).load(photo.url)
-                .into(holder.photoImageView)
-            holder.linkTextView.text = photo.url
-            Linkify.addLinks(holder.linkTextView, Linkify.WEB_URLS)
-
-            holder.favoritesDeleteBtn.setOnClickListener {
-                deleteItem(position)
-            }
-
-        }
-        if (viewType == VIEW_TYPE_REQUEST_CATEGORY) {
-            holder as RequestViewHolder
-            holder.request.text = recyclerData[position].request
-        }
-    }
-
-    fun updateList(list: Map<String, List<FavoritePhoto>>) {
-        val newData = ArrayList<RecyclerItemData>()
-        list.forEach { entry ->
-            newData.add(RecyclerItemData(entry.key))
-            entry.value.forEach { photo ->
-                newData.add(RecyclerItemData(photo))
-            }
-        }
+    fun updateList(adapterData: ArrayList<RecyclerItemData>) {
         recyclerData.clear()
-        recyclerData.addAll(newData)
+        recyclerData.addAll(adapterData)
         notifyDataSetChanged()
     }
 
@@ -92,26 +77,30 @@ class FavoritesPhotoAdapter :
         if (recyclerData[position].isPhoto) {
             val photo = recyclerData[position].favoritePhoto
             recyclerData.removeAt(position)
-            photoDelete.postValue(photo.id)
+            _photoDelete.postValue(photo.id)
             notifyItemRemoved(position)
         }
     }
 
-    class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+     class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var linkTextView: TextView = itemView.findViewById(R.id.tv_photo_link)
         var photoImageView: ImageView = itemView.findViewById(R.id.iv_photo)
         var favoritesDeleteBtn: ImageButton = itemView.findViewById(R.id.btn_delete_favorites)
 
-        fun bindView(data:RecyclerItemData){
-
+        fun bindView(data: RecyclerItemData){
+            val photo = data.favoritePhoto
+            Glide.with(photoImageView.context).load(photo.url)
+                .into(photoImageView)
+            linkTextView.text = photo.url
+            Linkify.addLinks(linkTextView, Linkify.WEB_URLS)
         }
     }
 
     class RequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var request: TextView = itemView.findViewById(R.id.tv_request)
 
-        fun bindView(data:RecyclerItemData){
-
+        fun bindView(data: RecyclerItemData){
+            request.text = data.request
         }
     }
 

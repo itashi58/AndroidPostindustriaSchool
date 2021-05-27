@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.ui.activities.main
+package com.example.androidpostindustriaschool.ui.activities.main.view
 
 import android.content.Context
 import android.content.Intent
@@ -16,9 +16,11 @@ import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.data.database.DatabaseSQLite
 import com.example.androidpostindustriaschool.data.repository.HistoryRepository
 import com.example.androidpostindustriaschool.data.repository.PhotoRepository
-import com.example.androidpostindustriaschool.ui.activities.favorites.FavoritesActivity
+import com.example.androidpostindustriaschool.ui.activities.favorites.view.FavoritesActivity
 import com.example.androidpostindustriaschool.ui.activities.gallery.GalleryActivity
-import com.example.androidpostindustriaschool.ui.activities.history.HistoryActivity
+import com.example.androidpostindustriaschool.ui.activities.history.view.HistoryActivity
+import com.example.androidpostindustriaschool.ui.activities.main.view_model.MainViewModel
+import com.example.androidpostindustriaschool.ui.activities.main.view_model.MainViewModelFactory
 import com.example.androidpostindustriaschool.ui.activities.maps.MapsActivity
 import com.example.androidpostindustriaschool.util.Constants
 import com.example.androidpostindustriaschool.util.Constants.Companion.GEOLOCATION_SEARCH

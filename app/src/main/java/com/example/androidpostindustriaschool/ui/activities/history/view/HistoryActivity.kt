@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.ui.activities.history
+package com.example.androidpostindustriaschool.ui.activities.history.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.data.database.DatabaseSQLite
 import com.example.androidpostindustriaschool.data.repository.HistoryRepository
+import com.example.androidpostindustriaschool.ui.activities.history.view_model.HistoryViewModel
+import com.example.androidpostindustriaschool.ui.activities.history.view_model.HistoryViewModelFactory
 
 
 class HistoryActivity : AppCompatActivity() {

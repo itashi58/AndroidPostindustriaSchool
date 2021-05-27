@@ -32,19 +32,19 @@
             android:label="@string/title_maps_action_bar"
             android:theme="@style/Theme.AndroidPostindustriaSchoolActionBar" />
         <activity
-            android:name=".ui.activities.history.HistoryActivity"
+            android:name=".ui.activities.history.view.HistoryActivity"
             android:label="@string/title_history_action_bar"
             android:theme="@style/Theme.AndroidPostindustriaSchoolActionBar" />
         <activity
-            android:name=".ui.activities.favorites.FavoritesActivity"
+            android:name=".ui.activities.favorites.view.FavoritesActivity"
             android:label="@string/title_favorites_action_bar"
             android:theme="@style/Theme.AndroidPostindustriaSchoolActionBar" />
         <activity
-            android:name=".ui.activities.login.LoginActivity"
+            android:name=".ui.activities.login.view.LoginActivity"
             android:label="@string/title_login_action_bar"
             android:theme="@style/Theme.AndroidPostindustriaSchool" />
         <activity
-            android:name=".ui.activities.photoReview.PhotoReviewActivity"
+            android:name="com.example.androidpostindustriaschool.ui.activities.photo_review.view.PhotoReviewActivity"
             android:theme="@style/Theme.AndroidPostindustriaSchool"
             tools:ignore="AppLinkUrlError" />
         <activity
@@ -57,7 +57,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.main.MainActivity"
+            android:name=".ui.activities.main.view.MainActivity"
             android:theme="@style/Theme.AndroidPostindustriaSchool" />
     </application>
 

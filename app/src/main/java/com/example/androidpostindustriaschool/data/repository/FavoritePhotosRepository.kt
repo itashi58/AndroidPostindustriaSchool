@@ -5,15 +5,15 @@ import com.example.androidpostindustriaschool.data.database.model.FavoritePhoto
 
 
 class FavoritePhotosRepository(private val favoritePhotoDao: FavoritePhotoDao) {
-    suspend fun insertInChosenPhotoDB(favoritePhoto: FavoritePhoto) {
+    suspend fun insertInFavoritePhotos(favoritePhoto: FavoritePhoto) {
         favoritePhotoDao.insert(favoritePhoto)
     }
 
-    suspend fun deleteFromChosenPhotoDB(id: String) {
+    suspend fun deleteFromFavoritePhotos(id: String) {
         favoritePhotoDao.delete(id)
     }
 
-    suspend fun isInChosenPhotoDB(id: String): Int {
+    suspend fun isInFavoritePhotos(id: String): Int {
         return favoritePhotoDao.checkForExistence(id)
     }
 

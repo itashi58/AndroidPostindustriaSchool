@@ -17,6 +17,9 @@ class Constants {
         const val INCORRECT_LOG = 1
         const val INCORRECT_PASS = 2
         const val LOGIN_SUCCESSFUL = 3
+        const val MAP_ZOOM = 10f
+        const val KIEV_LATITUDE = 50.450001
+        const val KIEV_LONGITUDE = 30.523333
         const val REQUEST_IMAGE_CAPTURE = 1
     }
 }

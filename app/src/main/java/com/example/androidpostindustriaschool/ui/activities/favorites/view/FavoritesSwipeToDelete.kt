@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.ui.activities.favorites
+package com.example.androidpostindustriaschool.ui.activities.favorites.view
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

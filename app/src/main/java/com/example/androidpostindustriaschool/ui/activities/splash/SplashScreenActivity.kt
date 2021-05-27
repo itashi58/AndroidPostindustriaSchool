@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.androidpostindustriaschool.R
-import com.example.androidpostindustriaschool.ui.activities.login.LoginActivity
+import com.example.androidpostindustriaschool.ui.activities.login.view.LoginActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

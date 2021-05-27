@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.ui.activities.favorites
+package com.example.androidpostindustriaschool.ui.activities.favorites.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.data.database.DatabaseSQLite
 import com.example.androidpostindustriaschool.data.repository.FavoritePhotosRepository
+import com.example.androidpostindustriaschool.ui.activities.favorites.view_model.FavoritesViewModel
+import com.example.androidpostindustriaschool.ui.activities.favorites.view_model.FavoritesViewModelFactory
 
 class FavoritesActivity : AppCompatActivity() {
 
@@ -37,7 +39,9 @@ class FavoritesActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         favoriteRecyclerView = findViewById(R.id.rv_history)
-        adapter = FavoritesPhotoAdapter()
+        adapter = FavoritesPhotoAdapter { ItemToDeletePosition: Int ->
+            adapter.deleteItem(ItemToDeletePosition)
+        }
         favoriteRecyclerView.adapter = adapter
         favoriteRecyclerView.layoutManager =
             GridLayoutManager(this, 1)

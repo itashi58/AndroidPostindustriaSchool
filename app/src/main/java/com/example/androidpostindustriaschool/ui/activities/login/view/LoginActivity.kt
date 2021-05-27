@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.ui.activities.login
+package com.example.androidpostindustriaschool.ui.activities.login.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.data.database.DatabaseSQLite
 import com.example.androidpostindustriaschool.data.repository.LoginRepository
-import com.example.androidpostindustriaschool.ui.activities.main.MainActivity
+import com.example.androidpostindustriaschool.ui.activities.login.view_model.LoginViewModel
+import com.example.androidpostindustriaschool.ui.activities.login.view_model.LoginViewModelFactory
+import com.example.androidpostindustriaschool.ui.activities.main.view.MainActivity
 import com.example.androidpostindustriaschool.util.Constants.Companion.INCORRECT_LOG
 import com.example.androidpostindustriaschool.util.Constants.Companion.INCORRECT_LOG_AND_PASS
 import com.example.androidpostindustriaschool.util.Constants.Companion.INCORRECT_PASS

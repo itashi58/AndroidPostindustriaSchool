@@ -1,19 +1,22 @@
-package com.example.androidpostindustriaschool.ui.activities.history
+package com.example.androidpostindustriaschool.ui.activities.history.view
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidpostindustriaschool.R
-import com.example.androidpostindustriaschool.data.database.model.RequestHistory
 
 
 class HistoryRequestAdapter() :
     RecyclerView.Adapter<HistoryRequestAdapter.RequestViewHolder>() {
 
-    val deleteHistory: MutableLiveData<Boolean> = MutableLiveData()
+    private val _deleteHistory: MutableLiveData<Boolean> = MutableLiveData()
+    val deleteHistory: LiveData<Boolean>
+        get() = _deleteHistory
+
     private var recyclerData = ArrayList<String>()
 
 
@@ -33,19 +36,15 @@ class HistoryRequestAdapter() :
 
     override fun getItemCount() = recyclerData.size
 
-    fun updateList(list: Array<RequestHistory>) {
-        val newData = ArrayList<String>()
-        list.forEach { entry ->
-            newData.add(entry.request)
-        }
+    fun updateList(history: ArrayList<String>) {
         recyclerData.clear()
-        recyclerData.addAll(newData)
+        recyclerData.addAll(history)
         notifyDataSetChanged()
     }
 
     fun deleteAll() {
         recyclerData.clear()
-        deleteHistory.postValue(true)
+        _deleteHistory.postValue(true)
         notifyDataSetChanged()
     }
 

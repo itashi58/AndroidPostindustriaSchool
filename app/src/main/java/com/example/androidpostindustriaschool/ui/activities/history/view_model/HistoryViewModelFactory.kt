@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.ui.activities.history
+package com.example.androidpostindustriaschool.ui.activities.history.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

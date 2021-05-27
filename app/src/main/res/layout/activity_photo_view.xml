@@ -7,20 +7,20 @@
     android:background="@color/black"
     android:orientation="vertical"
     android:padding="15dp"
-    tools:context=".ui.activities.photoReview.PhotoReviewActivity">
+    tools:context=".ui.activities.photo_review.view.PhotoReviewActivity">
 
     <ImageView
         android:id="@+id/photoView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/wraper"
+        app:layout_constraintBottom_toTopOf="@+id/cw_wrapper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/wraper"
+        android:id="@+id/cw_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/teal_200"

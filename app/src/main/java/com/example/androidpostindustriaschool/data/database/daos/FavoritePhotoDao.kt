@@ -16,6 +16,6 @@ interface FavoritePhotoDao {
     @Query("SELECT * FROM favorite_photo_table")
     suspend fun getAllChosenPhotos(): List<FavoritePhoto>
 
-    @Query("SELECT EXISTS(SELECT * FROM favorite_photo_table WHERE ID = :id)")
+    @Query("SELECT EXISTS(SELECT 1 FROM favorite_photo_table WHERE ID = :id)")
     suspend fun checkForExistence(id: String): Int
 }

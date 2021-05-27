@@ -1,5 +1,6 @@
-package com.example.androidpostindustriaschool.ui.activities.login
+package com.example.androidpostindustriaschool.ui.activities.login.view_model
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,20 +15,22 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
-    val loginResponseCode: MutableLiveData<Int> = MutableLiveData()
+    private val _loginResponseCode: MutableLiveData<Int> = MutableLiveData()
+    val loginResponseCode: LiveData<Int>
+        get() = _loginResponseCode
 
     fun insertUserInfo(login: String, password: String) {
         if (login.isNotEmpty() && password.length >= 6) {
             viewModelScope.launch(Dispatchers.IO) {
                 loginRepository.insertInUsers(login, password)
-                loginResponseCode.postValue(LOGIN_SUCCESSFUL)
+                _loginResponseCode.postValue(LOGIN_SUCCESSFUL)
             }
         } else if (login.isEmpty() && password.length < 6) {
-            loginResponseCode.postValue(INCORRECT_LOG_AND_PASS)
+            _loginResponseCode.postValue(INCORRECT_LOG_AND_PASS)
         } else if (login.isEmpty()) {
-            loginResponseCode.postValue(INCORRECT_LOG)
+            _loginResponseCode.postValue(INCORRECT_LOG)
         } else {
-            loginResponseCode.postValue(INCORRECT_PASS)
+            _loginResponseCode.postValue(INCORRECT_PASS)
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.ui.activities.login
+package com.example.androidpostindustriaschool.ui.activities.login.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

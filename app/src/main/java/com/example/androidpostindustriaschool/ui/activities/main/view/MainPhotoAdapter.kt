@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.ui.activities.main
+package com.example.androidpostindustriaschool.ui.activities.main.view
 
 import android.content.Intent
 import android.net.Uri
@@ -9,18 +9,22 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidpostindustriaschool.R
-import com.example.androidpostindustriaschool.ui.activities.photoReview.PhotoReviewActivity
+import com.example.androidpostindustriaschool.ui.activities.photo_review.view.PhotoReviewActivity
 import com.example.androidpostindustriaschool.util.Constants.Companion.REQUEST_EXTRA
 import org.bluecabin.textoo.Textoo
 
 
 class MainPhotoAdapter : RecyclerView.Adapter<MainPhotoAdapter.PhotoViewHolder>() {
 
-    val deletePhoto: MutableLiveData<String> = MutableLiveData()
+    private val _deletePhoto: MutableLiveData<String> = MutableLiveData()
+    val deletePhoto: LiveData<String>
+        get() = _deletePhoto
+
     var urls = ArrayList<String>()
     var request: String = ""
 
@@ -35,32 +39,7 @@ class MainPhotoAdapter : RecyclerView.Adapter<MainPhotoAdapter.PhotoViewHolder>(
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        Glide.with(holder.photoImageView.context).load(urls[position])
-            .into(holder.photoImageView)
-        holder.linkTextView.text = urls[position]
-
-        //make links with intents leading to PhotoReviewActivity in every CardView
-        holder.linkTextView = Textoo
-            .config(holder.linkTextView)
-            .linkifyAll()
-            .addLinksHandler { _, url ->
-                val intent = Intent(holder.linkTextView.context, PhotoReviewActivity::class.java).apply {
-                    data = Uri.parse(url)
-                    this.putExtra(REQUEST_EXTRA, request)
-                }
-                startActivity(holder.linkTextView.context, intent, Bundle())
-                true
-            }
-            .apply()
-
-        holder.photoImageView.setOnClickListener {
-            val intent = Intent(holder.linkTextView.context, PhotoReviewActivity::class.java).apply {
-                data = Uri.parse(holder.linkTextView.text.toString())
-                this.putExtra(REQUEST_EXTRA, request)
-            }
-            startActivity(holder.linkTextView.context, intent, Bundle())
-        }
-
+        holder.onBind(urls[position], request)
     }
 
     override fun getItemCount() = urls.size
@@ -75,13 +54,40 @@ class MainPhotoAdapter : RecyclerView.Adapter<MainPhotoAdapter.PhotoViewHolder>(
     fun deleteItem(position: Int) {
         urls.removeAt(position)
         notifyItemRemoved(position)
-        deletePhoto.postValue(urls[position])
+        _deletePhoto.postValue(urls[position])
     }
 
     class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var linkTextView: TextView = itemView.findViewById(R.id.tv_photo_link)
         var photoImageView: ImageView = itemView.findViewById(R.id.iv_photo)
 
+        fun onBind(url: String, request: String){
+            Glide.with(photoImageView.context).load(url)
+                .into(photoImageView)
+            linkTextView.text = url
+
+            //make links with intents leading to PhotoReviewActivity in every CardView
+            linkTextView = Textoo
+                .config(linkTextView)
+                .linkifyAll()
+                .addLinksHandler { _, url ->
+                    val intent = Intent(linkTextView.context, PhotoReviewActivity::class.java).apply {
+                        data = Uri.parse(url)
+                        this.putExtra(REQUEST_EXTRA, request)
+                    }
+                    startActivity(linkTextView.context, intent, Bundle())
+                    true
+                }
+                .apply()
+
+            photoImageView.setOnClickListener {
+                val intent = Intent(linkTextView.context, PhotoReviewActivity::class.java).apply {
+                    data = Uri.parse(linkTextView.text.toString())
+                    this.putExtra(REQUEST_EXTRA, url)
+                }
+                startActivity(linkTextView.context, intent, Bundle())
+            }
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.ui.activities.favorites
+package com.example.androidpostindustriaschool.ui.activities.favorites.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

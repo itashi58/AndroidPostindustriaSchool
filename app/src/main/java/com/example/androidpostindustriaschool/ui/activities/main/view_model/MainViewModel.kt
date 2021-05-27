@@ -1,4 +1,4 @@
-package com.example.androidpostindustriaschool.ui.activities.main
+package com.example.androidpostindustriaschool.ui.activities.main.view_model
 
 import androidx.lifecycle.*
 import com.example.androidpostindustriaschool.R
@@ -13,20 +13,28 @@ class MainViewModel(
     private val historyRepository: HistoryRepository
 ) : ViewModel() {
 
-    val flickrSearchResponse: MutableLiveData<List<String>> = MutableLiveData()
-    val flickrSearchError: MutableLiveData<Int> = MutableLiveData()
-    val progressBarVisibility: MutableLiveData<Boolean> = MutableLiveData()
+    private val _flickrSearchResponse: MutableLiveData<List<String>> = MutableLiveData()
+    private val _flickrSearchError: MutableLiveData<Int> = MutableLiveData()
+    private val _progressBarVisibility: MutableLiveData<Boolean> = MutableLiveData()
+
+    val flickrSearchResponse: LiveData<List<String>>
+        get() = _flickrSearchResponse
+    val flickrSearchError: LiveData<Int>
+        get() = _flickrSearchError
+    val progressBarVisibility: LiveData<Boolean>
+        get() = _progressBarVisibility
+
     lateinit var lastRequest: String
 
     fun searchInFlickr(search: String) {
         if (search.isEmpty() || search.isBlank()) {
-            flickrSearchError.postValue(R.string.msg_search_empty)
+            _flickrSearchError.postValue(R.string.msg_search_empty)
         } else {
             viewModelScope.launch(Dispatchers.IO) {
-                progressBarVisibility.postValue(true)
+                _progressBarVisibility.postValue(true)
                 val response = photoRepository.getFlickrAPIResponse(search)
                 handleFlickrResponse(response, search)
-                progressBarVisibility.postValue(false)
+                _progressBarVisibility.postValue(false)
             }
         }
     }
@@ -37,10 +45,10 @@ class MainViewModel(
         longitude: Double
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            progressBarVisibility.postValue(true)
+            _progressBarVisibility.postValue(true)
             val response = photoRepository.getFlickrAPIResponseLocation(latitude, longitude)
             handleFlickrResponse(response, GEOLOCATION_SEARCH)
-            progressBarVisibility.postValue(false)
+            _progressBarVisibility.postValue(false)
         }
     }
 
@@ -48,14 +56,14 @@ class MainViewModel(
     private suspend fun handleFlickrResponse(response: ArrayList<String>?, request: String) {
         when {
             response == null -> { //connection or internal problems
-                flickrSearchError.postValue(R.string.error_no_internet)
+                _flickrSearchError.postValue(R.string.error_no_internet)
             }
             response.isEmpty() -> { // no data for this request on api
-                flickrSearchError.postValue(R.string.msg_no_search_result)
+                _flickrSearchError.postValue(R.string.msg_no_search_result)
             }
             else -> { //correct response
                 lastRequest = request
-                flickrSearchResponse.postValue(response)
+                _flickrSearchResponse.postValue(response)
                 photoRepository.deleteAllFromDB()
                 photoRepository.insertDB(response, request)
             }
