@@ -45,6 +45,7 @@
     <string name="title_gallery_action_bar">Gallery</string>
     <string name="error_no_camera_app">Error, you don\'t have camera application</string>
     <string name="error_creating_photo">Error occurred, while creating photo</string>
+    <string name="dialog_edit_with_ucrop">Do you won\'t to edit your photo with uCrop</string>
 
 
 </resources>
