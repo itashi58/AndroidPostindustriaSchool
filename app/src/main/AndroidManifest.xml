@@ -36,7 +36,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".ui.activities.gallery.GalleryActivity"
+            android:name=".ui.activities.gallery.view.GalleryActivity"
             android:label="@string/title_gallery_action_bar"
             android:theme="@style/Theme.AndroidPostindustriaSchoolActionBar" />
         <activity

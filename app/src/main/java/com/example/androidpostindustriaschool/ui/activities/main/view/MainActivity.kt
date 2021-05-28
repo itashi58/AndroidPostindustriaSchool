@@ -17,7 +17,7 @@ import com.example.androidpostindustriaschool.data.database.DatabaseSQLite
 import com.example.androidpostindustriaschool.data.repository.HistoryRepository
 import com.example.androidpostindustriaschool.data.repository.PhotoRepository
 import com.example.androidpostindustriaschool.ui.activities.favorites.view.FavoritesActivity
-import com.example.androidpostindustriaschool.ui.activities.gallery.GalleryActivity
+import com.example.androidpostindustriaschool.ui.activities.gallery.view.GalleryActivity
 import com.example.androidpostindustriaschool.ui.activities.history.view.HistoryActivity
 import com.example.androidpostindustriaschool.ui.activities.main.view_model.MainViewModel
 import com.example.androidpostindustriaschool.ui.activities.main.view_model.MainViewModelFactory
