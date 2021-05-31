@@ -20,7 +20,7 @@ class PhotoRepository(private val photoDao: PhotoDao) {
             val apiResponse = flickrApi.search(searchRequest)
             val urls = ArrayList<String>()
             apiResponse.photos.photo.forEach {
-                urls.add("https://farm" + it.farm + ".staticflickr.com/" + it.server + "/" + it.id + "_" + it.secret + ".jpg" + "\n")
+                urls.add("https://farm" + it.farm + ".staticflickr.com/" + it.server + "/" + it.id + "_" + it.secret + ".jpg")
             }
             urls
         } catch (e: IOException) {
@@ -40,7 +40,7 @@ class PhotoRepository(private val photoDao: PhotoDao) {
             val apiResponse = flickrApi.searchByLocation(latitude, longitude)
             val urls = ArrayList<String>()
             apiResponse.photos.photo.forEach {
-                urls.add("https://farm" + it.farm + ".staticflickr.com/" + it.server + "/" + it.id + "_" + it.secret + ".jpg" + "\n")
+                urls.add("https://farm" + it.farm + ".staticflickr.com/" + it.server + "/" + it.id + "_" + it.secret + ".jpg")
             }
             urls
         } catch (e: IOException) {

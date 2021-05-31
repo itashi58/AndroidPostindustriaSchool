@@ -44,8 +44,6 @@ class GalleryActivity : AppCompatActivity() {
         setObservers()
 
         getPhotosFromMemory()
-
-
     }
 
     private fun setListeners() {
@@ -54,11 +52,7 @@ class GalleryActivity : AppCompatActivity() {
 
     private fun setObservers() {
         adapter.deletePhoto.observe(this, { uri ->
-            val fileToDelete = File(uri.toString())
-            if (fileToDelete.exists()) {
-                fileToDelete.delete()
-            }
-
+           deleteFile(uri)
         })
     }
 
@@ -92,7 +86,7 @@ class GalleryActivity : AppCompatActivity() {
                 // Continue only if the File was successfully created
                 photoFile?.also {
                     photoURI = FileProvider.getUriForFile(
-                        Objects.requireNonNull(applicationContext),
+                        applicationContext,
                         BuildConfig.APPLICATION_ID + ".fileprovider", it
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
@@ -107,8 +101,12 @@ class GalleryActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             createDialog()
-        }
-        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP && data != null) {
+        } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_CANCELED){
+            Log.d("deletion complete", "file deleted")
+
+            deleteFile(currentPhotoPath.toUri())
+            getPhotosFromMemory()
+        } else if (requestCode == UCrop.REQUEST_CROP && resultCode == RESULT_OK && data != null) {
             UCrop.getOutput(data)
             getPhotosFromMemory()
         } else if (resultCode == UCrop.RESULT_ERROR && data != null) {
@@ -162,7 +160,7 @@ class GalleryActivity : AppCompatActivity() {
         if (path.exists()) {
             val fileNames = path.list()
             if (fileNames != null && fileNames.isNotEmpty()) {
-                val uris = ArrayList<Uri>(fileNames.lastIndex)
+                val uris = ArrayList<Uri>(fileNames.size)
                 for (i in fileNames.indices) {
                     val photoPass = (path.path + "/" + fileNames[i]).toUri()
                     uris.add(photoPass)
@@ -173,6 +171,13 @@ class GalleryActivity : AppCompatActivity() {
                 uris.reverse()
                 adapter.updateList(uris)
             }
+        }
+    }
+
+    private fun deleteFile(uri: Uri){
+        val fileToDelete = File(uri.toString())
+        if (fileToDelete.exists()) {
+            fileToDelete.delete()
         }
     }
 }

@@ -1,13 +1,27 @@
 package com.example.androidpostindustriaschool.ui.activities.main.view
 
+import android.Manifest
+import android.app.Activity
+import android.content.ContentResolver
+import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.media.MediaScannerConnection
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,7 +30,16 @@ import com.bumptech.glide.Glide
 import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.ui.activities.photo_review.view.PhotoReviewActivity
 import com.example.androidpostindustriaschool.util.Constants.Companion.REQUEST_EXTRA
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.bluecabin.textoo.Textoo
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.OutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainPhotoAdapter : RecyclerView.Adapter<MainPhotoAdapter.PhotoViewHolder>() {
@@ -25,7 +48,7 @@ class MainPhotoAdapter : RecyclerView.Adapter<MainPhotoAdapter.PhotoViewHolder>(
     val deletePhoto: LiveData<String>
         get() = _deletePhoto
 
-    var urls = ArrayList<String>()
+    private var urls = ArrayList<String>()
     var request: String = ""
 
     override fun onCreateViewHolder(
@@ -58,11 +81,12 @@ class MainPhotoAdapter : RecyclerView.Adapter<MainPhotoAdapter.PhotoViewHolder>(
     }
 
     class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var linkTextView: TextView = itemView.findViewById(R.id.tv_photo_link)
-        var photoImageView: ImageView = itemView.findViewById(R.id.iv_photo)
+        private var linkTextView: TextView = itemView.findViewById(R.id.tv_photo_link)
+        private var photoImageView: ImageView = itemView.findViewById(R.id.iv_photo)
+        private val holderContext: Context = linkTextView.context
 
-        fun onBind(url: String, request: String){
-            Glide.with(photoImageView.context).load(url)
+        fun onBind(url: String, request: String) {
+            Glide.with(holderContext).load(url)
                 .into(photoImageView)
             linkTextView.text = url
 
@@ -70,24 +94,24 @@ class MainPhotoAdapter : RecyclerView.Adapter<MainPhotoAdapter.PhotoViewHolder>(
             linkTextView = Textoo
                 .config(linkTextView)
                 .linkifyAll()
-                .addLinksHandler { _, url ->
-                    val intent = Intent(linkTextView.context, PhotoReviewActivity::class.java).apply {
-                        data = Uri.parse(url)
-                        this.putExtra(REQUEST_EXTRA, request)
-                    }
-                    startActivity(linkTextView.context, intent, Bundle())
+                .addLinksHandler { _, _ ->
+                    val intent =
+                        Intent(holderContext, PhotoReviewActivity::class.java).apply {
+                            data = Uri.parse(url)
+                            this.putExtra(REQUEST_EXTRA, request)
+                        }
+                    startActivity(holderContext, intent, Bundle())
                     true
                 }
                 .apply()
 
             photoImageView.setOnClickListener {
-                val intent = Intent(linkTextView.context, PhotoReviewActivity::class.java).apply {
+                val intent = Intent(holderContext, PhotoReviewActivity::class.java).apply {
                     data = Uri.parse(linkTextView.text.toString())
                     this.putExtra(REQUEST_EXTRA, url)
                 }
-                startActivity(linkTextView.context, intent, Bundle())
+                startActivity(holderContext, intent, Bundle())
             }
         }
     }
-
 }

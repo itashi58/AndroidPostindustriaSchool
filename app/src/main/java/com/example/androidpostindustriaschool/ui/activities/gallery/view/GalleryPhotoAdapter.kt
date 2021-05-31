@@ -1,7 +1,5 @@
 package com.example.androidpostindustriaschool.ui.activities.gallery.view
 
-import android.R.attr.path
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +9,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.androidpostindustriaschool.R
 
 
@@ -56,8 +56,9 @@ class GalleryPhotoAdapter : RecyclerView.Adapter<GalleryPhotoAdapter.PhotoViewHo
 
         fun onBind(uri: Uri){
             Glide.with(photoImageView.context).load(uri.toString())
+                .apply(RequestOptions.skipMemoryCacheOf(true))
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                 .into(photoImageView)
-
         }
     }
 

@@ -85,7 +85,7 @@ class FavoritesPhotoAdapter(private val listener: (Int) -> Unit) :
      class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var linkTextView: TextView = itemView.findViewById(R.id.tv_photo_link)
         var photoImageView: ImageView = itemView.findViewById(R.id.iv_photo)
-        var favoritesDeleteBtn: ImageButton = itemView.findViewById(R.id.btn_delete_favorites)
+        var favoritesDeleteBtn: ImageButton = itemView.findViewById(R.id.btn_favorites)
 
         fun bindView(data: RecyclerItemData){
             val photo = data.favoritePhoto

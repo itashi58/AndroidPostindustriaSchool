@@ -21,5 +21,7 @@ class Constants {
         const val KIEV_LATITUDE = 50.450001
         const val KIEV_LONGITUDE = 30.523333
         const val REQUEST_IMAGE_CAPTURE = 1
+        const val REQUEST_EXTERNAL_STORAGE = 101
+        const val SAVED_PHOTO_DIRECTORY_NAME = "Postindusria School"
     }
 }

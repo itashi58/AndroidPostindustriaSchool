@@ -3,11 +3,11 @@
 
     <string name="app_name">AndroidPostindustriaSchool</string>
 
-    <!--    Splash Screen Activity-->
+    <!--    Splash Screen Activity   -->
     <string name="logo_md_content_description">Logo MD</string>
     <string name="title_app_created_by">App created by: Malyi Danylo</string>
 
-    <!--    Main Activity -->
+    <!--    Main Activity   -->
     <string name="error_no_internet">Internet connection error. Please check your connection and try again</string>
     <string name="msg_no_search_result">Nothing to show on your request(</string>
     <string name="msg_search_empty">Search field is empty</string>
@@ -15,7 +15,7 @@
     <string name="hint_search_field">Search in Flickr</string>
     <string name="error_internal_error">Internal error, connect with developers team</string>
 
-    <!--    Login Activity -->
+    <!--    Login Activity   -->
     <string name="title_login_action_bar">LoginActivity</string>
     <string name="hint_password">Password</string>
     <string name="hint_login">Login</string>
@@ -24,7 +24,7 @@
     <string name="msg_invalid_login">"Login field is empty"</string>
     <string name="msg_invalid_login_and_password">"Login field is empty \nPassword must be at least 6 characters"</string>
 
-    <!--    Favorites Activity-->
+    <!--    Favorites Activity   -->
     <string name="title_favorites_action_bar">Favorites</string>
     <string name="msg_no_favorite_photos">You have no favorite photos</string>
 
@@ -32,6 +32,10 @@
     <string name="title_history_action_bar">History</string>
     <string name="msg_no_history">You have no history, yet</string>
     <string name="action_clear_history">Clear History</string>
+
+    <!--    PhotoReview Activity   -->
+    <string name="error_no_storage_permission">Sorry, to load photos we need storage permission, you can grant it in settings</string>
+    <string name="msg_downloading_photo">Downloading photo</string>
 
     <!--    Maps Activity-->
     <string name="title_maps_action_bar">Map</string>
@@ -41,7 +45,7 @@
     <string name="msg_wait_for_location">Getting your location. Please wait</string>
     <string name="title_current_location">Current location</string>
 
-    <!--    Gallery Activity-->
+    <!--    Gallery Activity   -->
     <string name="title_gallery_action_bar">Gallery</string>
     <string name="error_no_camera_app">Error, you don\'t have camera application</string>
     <string name="error_creating_photo">Error occurred, while creating photo</string>

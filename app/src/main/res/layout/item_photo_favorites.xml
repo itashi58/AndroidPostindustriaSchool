@@ -29,7 +29,7 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                app:layout_constraintBottom_toTopOf="@+id/btn_delete_favorites"
+                app:layout_constraintBottom_toTopOf="@+id/btn_favorites"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -43,11 +43,11 @@
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_delete_favorites"
+                app:layout_constraintStart_toEndOf="@+id/btn_favorites"
                 app:layout_constraintTop_toBottomOf="@+id/iv_photo" />
 
             <ImageButton
-                android:id="@+id/btn_delete_favorites"
+                android:id="@+id/btn_favorites"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
