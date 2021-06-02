@@ -34,8 +34,10 @@
     <string name="action_clear_history">Clear History</string>
 
     <!--    PhotoReview Activity   -->
-    <string name="error_no_storage_permission">Sorry, to load photos we need storage permission, you can grant it in settings</string>
     <string name="msg_downloading_photo">Downloading photo</string>
+    <string name="msg_photo_loaded">Photo downloaded</string>
+    <string name="error_while_loading">Error while loading photo</string>
+
 
     <!--    Maps Activity-->
     <string name="title_maps_action_bar">Map</string>

@@ -2,7 +2,6 @@ package com.example.androidpostindustriaschool.ui.activities.main.view
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.androidpostindustriaschool.ui.activities.main.view.MainPhotoAdapter
 
 class MainSwipeToDelete() :
     ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {

@@ -1,27 +1,14 @@
 package com.example.androidpostindustriaschool.ui.activities.main.view
 
-import android.Manifest
-import android.app.Activity
-import android.content.ContentResolver
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.media.MediaScannerConnection
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -30,15 +17,7 @@ import com.bumptech.glide.Glide
 import com.example.androidpostindustriaschool.R
 import com.example.androidpostindustriaschool.ui.activities.photo_review.view.PhotoReviewActivity
 import com.example.androidpostindustriaschool.util.Constants.Companion.REQUEST_EXTRA
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.bluecabin.textoo.Textoo
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.OutputStream
-import java.util.*
 import kotlin.collections.ArrayList
 
 
