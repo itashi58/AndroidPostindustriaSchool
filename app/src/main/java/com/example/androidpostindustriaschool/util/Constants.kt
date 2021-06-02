@@ -22,6 +22,8 @@ class Constants {
         const val KIEV_LONGITUDE = 30.523333
         const val REQUEST_IMAGE_CAPTURE = 1
         const val REQUEST_EXTERNAL_STORAGE = 101
-        const val SAVED_PHOTO_DIRECTORY_NAME = "Postindusria School"
+        const val SAVED_PHOTO_DIRECTORY_NAME = "Postindustria School"
+        const val SAVED_PHOTOS_QUALITY = 100
+        const val FLICKER_SAVED_PICTURES_DIR = "/storage/emulated/0/Pictures/Postindustria School/"
     }
 }

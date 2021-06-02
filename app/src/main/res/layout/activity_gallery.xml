@@ -29,6 +29,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="10dp"
         app:maxImageSize="35dp"
-        android:background="@color/yellow"
+        android:backgroundTint="@color/teal_200"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

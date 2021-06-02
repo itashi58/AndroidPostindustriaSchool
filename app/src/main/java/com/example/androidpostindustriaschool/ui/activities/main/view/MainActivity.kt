@@ -64,6 +64,11 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
         setObservers()
         setListeners()
+        askForPermissions()
+    }
+
+    private fun askForPermissions() {
+
     }
 
     override fun onPause() {

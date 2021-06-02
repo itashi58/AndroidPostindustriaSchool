@@ -20,7 +20,7 @@ class GalleryPhotoAdapter : RecyclerView.Adapter<GalleryPhotoAdapter.PhotoViewHo
     val deletePhoto: LiveData<Uri>
         get() = _deletePhoto
 
-    var uris = ArrayList<Uri>()
+    private var uris = ArrayList<Uri>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -52,7 +52,7 @@ class GalleryPhotoAdapter : RecyclerView.Adapter<GalleryPhotoAdapter.PhotoViewHo
     }
 
     class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var photoImageView: ImageView = itemView.findViewById(R.id.iv_gallery_photo)
+        private var photoImageView: ImageView = itemView.findViewById(R.id.iv_gallery_photo)
 
         fun onBind(uri: Uri){
             Glide.with(photoImageView.context).load(uri.toString())

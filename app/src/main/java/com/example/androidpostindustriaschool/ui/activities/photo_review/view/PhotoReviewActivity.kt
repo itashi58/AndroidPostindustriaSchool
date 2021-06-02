@@ -29,12 +29,12 @@ import com.example.androidpostindustriaschool.ui.activities.photo_review.view_mo
 import com.example.androidpostindustriaschool.util.Constants.Companion.REQUEST_EXTERNAL_STORAGE
 import com.example.androidpostindustriaschool.util.Constants.Companion.REQUEST_EXTRA
 import com.example.androidpostindustriaschool.util.Constants.Companion.SAVED_PHOTO_DIRECTORY_NAME
+import com.example.androidpostindustriaschool.util.Constants.Companion.SAVED_PHOTOS_QUALITY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
-import java.io.OutputStream
 
 class PhotoReviewActivity : AppCompatActivity() {
     private lateinit var photoView: ImageView
@@ -61,6 +61,7 @@ class PhotoReviewActivity : AppCompatActivity() {
 
         context = this
         url = intent.data.toString()
+
         val request = intent.extras?.getString(REQUEST_EXTRA) ?: ""
         if (intent.data != null) {
             Glide.with(this).load(url)
@@ -71,7 +72,7 @@ class PhotoReviewActivity : AppCompatActivity() {
         viewModel.idInChosenPhoto(url + request)
 
         setObservers()
-        setListeners(url, request)
+        setListeners(request)
     }
 
     private fun setObservers() {
@@ -90,7 +91,7 @@ class PhotoReviewActivity : AppCompatActivity() {
         })
     }
 
-    private fun setListeners(url: String, request: String) {
+    private fun setListeners(request: String) {
         addToFavorites.setOnClickListener {
             if (isPhotoFavorite) {
                 addToFavorites.background =
@@ -162,13 +163,12 @@ class PhotoReviewActivity : AppCompatActivity() {
                 .toString()
         val photosDir = File(root + File.separator + SAVED_PHOTO_DIRECTORY_NAME)
         photosDir.mkdirs()
-        val fileName = "Image-$urlWithoutSlash.jpg"
-        val imageFile = File(photosDir, fileName)
+        val imageFile = File(photosDir, urlWithoutSlash)
         if (imageFile.exists()) imageFile.delete()
         imageFile.createNewFile()
         try {
             val out = FileOutputStream(imageFile)
-            image.compress(Bitmap.CompressFormat.JPEG, 100, out)
+            image.compress(Bitmap.CompressFormat.JPEG, SAVED_PHOTOS_QUALITY, out)
             out.flush()
             out.close()
         } catch (e: java.lang.Exception) {
@@ -180,25 +180,29 @@ class PhotoReviewActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun saveImageSdkQ() {
         val urlWithoutSlash = url.replace('/', '|') //because '/' is counted as new directory
-        val outputStream: OutputStream?
         val contentResolver: ContentResolver = this.contentResolver
         val contentValues = ContentValues()
 
-        contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, urlWithoutSlash)
-        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
-        contentValues.put(
-            MediaStore.MediaColumns.RELATIVE_PATH,
-            Environment.DIRECTORY_PICTURES + File.separator + SAVED_PHOTO_DIRECTORY_NAME
-        )
-        val imageUri =
-            contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, urlWithoutSlash)
+            contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+            contentValues.put(
+                MediaStore.MediaColumns.RELATIVE_PATH,
+                Environment.DIRECTORY_PICTURES + File.separator + SAVED_PHOTO_DIRECTORY_NAME
+            )
+            val imageUri =
+                contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+            if (imageUri != null && !File(imageUri.path).exists()) {
+                try {
+                    val outputStream = contentResolver.openOutputStream(imageUri)!!
+                    image.compress(Bitmap.CompressFormat.JPEG, SAVED_PHOTOS_QUALITY, outputStream)
+                } catch (e: FileNotFoundException) {
+                    e.printStackTrace()
+                }
+            } else {
+                createToast(R.string.error_no_photo_on_flickr_server)
+            }
 
-        try {
-            outputStream = contentResolver.openOutputStream(imageUri!!)!!
-            image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-        }
+
     }
 
     override fun onRequestPermissionsResult(
